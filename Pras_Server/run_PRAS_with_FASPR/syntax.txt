@@ -1,0 +1,32 @@
+Compile FASPR
+`g++ -ffast-math -O3 -o FASPR src/*.cpp`
+
+Install PRAS server
+`pip install Pras-Server==1.0.7`
+
+Execute to run PRAS with FASPR output PDB
+`./FASPR –i 1aho.pdb -o out.pdb;python3 linux_example.py 1aho.pdb "" "" out.pdb "" ""`
+
+You will see that both 	assignStructure('out_no_h.pdb') and ramachandranTypes('out_no_h.pdb')
+are commented in linux_example.py and the reason is because you must install X server for Windows
+in order to run Linux GUI applications using Windows Subsystem for Linux (WSL).
+
+Thus, you need to:
+
+Install X server for Windows
+
+Configure bash to tell GUIs to use the local X server
+
+So, install VcXsrv which is open source by downloading from https://sourceforge.net/projects/vcxsrv/
+
+Configure bash to use the local X server (VcXsrv is an X server). In bash run:
+
+`echo "export DISPLAY=localhost:0.0" >> ~/.bashrc`
+
+To have the configuration changes take effect, restart bash, or run:
+
+`. ~/.bashrc`
+
+Then open VcXsrv from your taskbar (you should send the icon to taskbar for easy access).
+Note that VcXsrv must be open/running each time you use plotting tools in the linux terminal
+(now uncomment assignStructure('out_no_h.pdb') and ramachandranTypes('out_no_h.pdb') in linux_example.py)
