@@ -82,7 +82,7 @@ def ramachandranTypes(filename, cmap = ""):
 			chains  = [i for i,j in enumerate(rf) if j[:3].strip(' ')  == "TER"]
 		except:
 			print('{} could not be read, check the file and format.'
-				 '\n' 'Perhaps it should be a cif but you specified pdb.'
+				 '\n' 'Perhaps it should be a pdb but you specified cif.'
 				  ' Ramanchandran''\n''types could not be plotted'.format(filename))
 			sys.exit(1)
 
