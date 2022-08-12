@@ -61,7 +61,7 @@ from Pras_Server.SecondaryStructure import assignStructure
 # assigned the SS elements and plotted the ramachandran types                    #
 #                                                                                #
 # Perhaps you should start the test with _82_pdbs which are distinct from        # 
-# _494_pdbs. When combined together, there 576 PDB IDs!                          #
+# _494_pdbs. When combined together, there are 576 PDB IDs!                      #
 #                                                                                #
 # Acess to internet is required for this test and the processing speed is subject#
 # to your internet download sped.                                                #
