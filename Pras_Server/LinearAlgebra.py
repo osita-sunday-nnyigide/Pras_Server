@@ -184,7 +184,7 @@ def arbRot(vector,axis,theta):
 
 def class2(pos_CA,pos_CG,pos_CB,bond_len=""):
     """
-    Given a tetrahedron with two know vertices this function
+    Given a tetrahedron with two known vertices this function
     obtains the other vertices corresponding to class2 H-atoms.
 
     Arguments (variables do not always correspond to atom names)
@@ -219,7 +219,7 @@ def class2(pos_CA,pos_CG,pos_CB,bond_len=""):
 
 def class3(pos_CB,pos_N,pos_CA):
     """
-    Given a tetrahedron with three know vertices this function
+    Given a tetrahedron with three known vertices this function
     obtains the other vertex corresponding to a class3 H-atom.
 
     Arguments (variables do not always correspond to atom names)
