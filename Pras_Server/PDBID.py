@@ -4,9 +4,9 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, PDBID.py is used to store
+This module, PDBID.py is used to store 82 
 
-494 PDB IDs. They can be used to test
+and 494 PDB IDs. They can be used to test
 
 this program for speed or presence of bugs
 
