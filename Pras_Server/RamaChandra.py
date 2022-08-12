@@ -28,6 +28,7 @@ __status__     = "Production"
 
 __date__       = "May 11, 2022"
 
+import sys
 import itertools
 import numpy as np
 from . import ReadStructure
