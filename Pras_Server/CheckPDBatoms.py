@@ -30,8 +30,6 @@ __date__       = "May 11, 2022"
 
 import os
 import sys
-import itertools
-import numpy as np
 from .MissingHeavyAtoms import *
 from .ReadMaster import getChains
 from .ForcefieldParam import param
@@ -41,26 +39,26 @@ from .ReadmmCIF import get_mmcif_chains
 def keepLigands(chains, chain_no, _format):
 
     """
-    The default behaviour of PRAS is to generate 
-    clean protein structures. This is because ligands 
+    The default behaviour of PRAS is to generate
+    clean protein structures. This is because ligands
     are specially treated in docking or MD simulation.
 
     However, if for any reason one intends to keep
     the ligands (non-water ligands), this function will
     extract the ligand coordinates to be appended to
-    the particular chain it belongs to in the PDB 
+    the particular chain it belongs to in the PDB
     structure file
 
     Arguments
     ----------
     chains:          all the chains in the PDB structure
 
-    chain_no:        chain number. If user selects a  particular 
-                     chain then the ligand in that particular 
+    chain_no:        chain number. If user selects a  particular
+                     chain then the ligand in that particular
                      chain is exracted, otherwise all ligands
                      will be extracted
 
-    _format:         the file format. If cif, the HETATM 
+    _format:         the file format. If cif, the HETATM
                      format is different compared with pdb
 
     Returns
@@ -76,7 +74,7 @@ def keepLigands(chains, chain_no, _format):
         except:
             invalidChain(chain_no)
 
-        all_chains = [i[-1][0] for i in chains[0]]      
+        all_chains = [i[-1][0] for i in chains[0]]
         ligand_per_chain = [[] for _ in range(len(chains[0]))]
 
         for i in range(len(all_chains)):
@@ -87,8 +85,8 @@ def keepLigands(chains, chain_no, _format):
                         ligand_per_chain[i].append(j)
                 else:
                     # check if _atom_site.auth_asym_id is provided
-                    # which seems to have priority based on some 
-                    # .cif files where _atom_site.label_asym_id is 
+                    # which seems to have priority based on some
+                    # .cif files where _atom_site.label_asym_id is
                     # different from _atom_site.auth_asym_id for
                     # the same entry.
                     try:
@@ -155,8 +153,8 @@ def non_standard_residue(resNo,resn,chain):
     None:    a premature termination of the program
     """
     with open('non_standard_residue.txt', 'w') as f:
-        f.write('The residue {}  named {} in chain {} is a' 
-                ' non-standard residue. Program has terminated' 
+        f.write('The residue {}  named {} in chain {} is a'
+                ' non-standard residue. Program has terminated'
                 ' abnormally'.format(resNo,resn,chain)+'\n\n')
 
         sys.exit(1)
@@ -164,7 +162,7 @@ def non_standard_residue(resNo,resn,chain):
 def invalidChain(chain_no):
 
     """
-    This function checks if an invalid chain is selected 
+    This function checks if an invalid chain is selected
     and then terminate the program.
 
     Returns
@@ -172,9 +170,9 @@ def invalidChain(chain_no):
     None:   a premature termination of the program
     """
     with open('invalid_chain.txt', 'w') as f:
-        f.write('You selected chain No. {} which does not exist.' 
+        f.write('You selected chain No. {} which does not exist.'
             ' Chain No. must be a positive number that is less'
-            ' than or equal the total number of chain in the PDB' 
+            ' than or equal the total number of chain in the PDB'
             ' structure file'.format(chain_no)+'\n')
 
         sys.exit(1)
@@ -237,21 +235,21 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
                  if not supply "". PRAS uses atoms with highest occupancy by default.
 
     mutation:    supply "no" if you need to generate lower occupancy conformers,
-                 if not supply "". PRAS uses the residue with highest occupancy by default 
+                 if not supply "". PRAS uses the residue with highest occupancy by default
                  if two residues are given same residue number
 
     pdb_faspr:   the output PDB obtained by running your PDB with FASPR
 
-    keep_ligand: by default, ligands and entries with HETATM are ignored because in most 
+    keep_ligand: by default, ligands and entries with HETATM are ignored because in most
                  MD simulation and docking studies the ligand is specially treated. Moreover,
                  PRAS does not repair ligands (ligand structure is diverse compared with protein
                  with 20 repeating common amino acids!). However, user can supply any string as
                  the argument if user intends to keep ligands.
 
     chain_no   : by default, all the chains in the PDB will be processed. However, if user intends to
-                 use a specific chain, user should provide an integer or a string number as the argument. 
-                 PRAS will map the integer to alphabets. Chain can start with any letter. Thus, 
-                 1 = the first chain, 2 = the second chain, etc. If user supplies a string number PRAS 
+                 use a specific chain, user should provide an integer or a string number as the argument.
+                 PRAS will map the integer to alphabets. Chain can start with any letter. Thus,
+                 1 = the first chain, 2 = the second chain, etc. If user supplies a string number PRAS
                  will convert it to integer but if alphabet error will be generated.
 
     Returns
@@ -261,7 +259,7 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
 
 
     """
-    Remove previous log file in 
+    Remove previous log file in
     the case of another run
     """
     try:
@@ -270,27 +268,32 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
         pass
 
     """
-    Now initialize the list to grab all 
-    chains with all missing atoms fixed. 
+    Now initialize the list to grab all
+    chains with all missing atoms fixed.
     """
     ter_all = []
 
     with open('log.txt', 'a') as log:
 
-        log.write('When using files generated by this program in a publication'
-        ' please cite this program as "O.S. Nnyigide, T.O. Nnyigide,'+'\n'
-        'S.G. Lee, K. Hyun. PRAS: A Web Server to Repair PDB Structures,'
-        ' Add Missing Heavy Atoms and Hydrogen Atoms and Assign'+'\n'
-        'Secondary Structure by Amide Interactions. Submitted'+'\n')
-        log.write('#'*118+'\n')
-        log.write('PRAS 1.0.7 This is a PRAS-generated log file.'
-                ' For your information, fixed atoms (if any) are' 
-                ' appended below '+'\n')
-        log.write('#'*118+'\n\n')
+        log.write('When using files generated by this program in a publication,' 
+                ' please cite this program as "O.S. Nnyigide, T.O. Nnyigide,'
+                ' S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web' +'\n'+
+                'Server to Repair PDB Structures, Add Missing Heavy' 
+                ' Atoms and Hydrogen Atoms and Assign Secondary Structure by' 
+                ' Amide Interactions. J. Chem. Inf. Model., 2022.'+'\n')
+
+        log.write('#'*183+'\n')
+
+        log.write('PRAS 1.0.7. This is a PRAS-generated log file.'
+                ' For your information, all the missing or fixed atoms' 
+                ' and other relevant information concerning the repair' 
+                ' are appended below '+'\n')
+        
+        log.write('#'*183+'\n\n')
 
     """
-    Read user's input file obtained from faspr but if 
-    it is not readable inform user and use default chi 
+    Read user's input file obtained from faspr but if
+    it is not readable inform user and use default chi
     from Dunbrack 2011 rotamer library
     """
     try:
@@ -301,13 +304,13 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
 
     if not faspr:
         with open('log.txt', 'a') as log:
-            log.write('No FASPR PDB output supplied.' 
-                      'Default chi will be used'+'\n\n'
+            log.write('No FASPR PDB output supplied.'
+                      ' Default chi will be used'+'\n\n'
                       )
 
     """
     Read user's input file to be repaired or analyzed
-    but if it is not readable inform user and terminate 
+    but if it is not readable inform user and terminate
     the program
     """
     try:
@@ -316,14 +319,14 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
         # directory where PRAS is run.
         if pdb_pras[-4:] != '.cif':
             chains = getChains(
-                                pdb_pras, rotamer, mutation, 
+                                pdb_pras, rotamer, mutation,
                                 pdb_faspr, keep_ligand
 
-                                ) 
+                                )
         else:
             chains = get_mmcif_chains(
 
-                                    pdb_pras, rotamer, 
+                                    pdb_pras, rotamer,
                                     mutation, keep_ligand
                                  )
 
@@ -353,18 +356,18 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
         chains = chains[0]
 
     """
-    Specify the particular chain if you need to, otherwise all 
-    chains will be processed.The chain is specified as an integer 
-    or a string number. PRAS will map the integer to alphabets. 
-    Chain  can start with any letter. Thus, 1 = the first chain, 
+    Specify the particular chain if you need to, otherwise all
+    chains will be processed.The chain is specified as an integer
+    or a string number. PRAS will map the integer to alphabets.
+    Chain  can start with any letter. Thus, 1 = the first chain,
     2 = the second chain, etc.
     """
     if chain_no:
         try:
             chain_no = int(chain_no) if type(chain_no) is str else chain_no
-            chains = [chains[chain_no-1]]                 
+            chains = [chains[chain_no-1]]
         except:
-            invalidChain(chain_no)            
+            invalidChain(chain_no)
 
     # now loop through the whole chain and fix the missing
     # atoms in each chain by calling MissingHeavyAtoms.py
