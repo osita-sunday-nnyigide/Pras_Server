@@ -37,7 +37,7 @@ stored. Whilst in the folder, create a python document (e.g. testpras.py). Enter
 from Pras_Server import test
 ```
 
-The above will download and analyze 82 or 494 protein structures. One can modify test.py to process either of the lists or comment the SS assignment and Ramachandran plots to save memory (if you  encounter failed to allocate bitmap)
+The above will download and analyze 82 or 494 protein structures. One can modify test.py to process either of the lists or comment the SS assignment and Ramachandran plots to save memory (if you encounter failed to allocate bitmap error)
 
 For users that do not want to do the above comprehensive test, instructions are given below to process a 
 
