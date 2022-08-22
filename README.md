@@ -1,4 +1,4 @@
-Protein Repair and Analysis Server (PRAS) Server is a library to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structure by amide-amide interactions of the backbone
+Protein Repair and Analysis (PRAS) Server is a library to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structure by amide-amide interactions of the backbone
 
 You can use the server online at https://www.protein-science.com/ or on your local machine following the instructions given below
 
