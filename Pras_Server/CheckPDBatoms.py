@@ -279,7 +279,7 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
                 ' please cite this program as "O.S. Nnyigide, T.O. Nnyigide,'
                 ' S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web' +'\n'+
                 'Server to Repair PDB Structures, Add Missing Heavy'
-                ' Atoms and Hydrogen Atoms and Assign Secondary Structures by'
+                ' Atoms and Hydrogen Atoms, and Assign Secondary Structures by'
                 ' Amide Interactions. J. Chem. Inf. Model., 2022.'+'\n')
 
         log.write('#'*183+'\n')
