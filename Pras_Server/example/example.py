@@ -1,24 +1,24 @@
-# computational time varies 
+# computational time varies
 import time
 
 # this function adds both heavy and H-atoms
-from Pras_Server.PRAS import repairPDB 
+from Pras_Server.PRAS import repairPDB
 
 # this function replaces only missing heavy atoms
 from Pras_Server.FixHeavyAtoms import fixheavyAtoms
- 
+
 # this function draws the 4 ramachandran types
-from Pras_Server.RamaChandra import ramachandranTypes 
+from Pras_Server.RamaChandra import ramachandranTypes
 
 # this function assigns the secondary structure elements
-from Pras_Server.SecondaryStructure import assignStructure 
+from Pras_Server.SecondaryStructure import assignStructure
 
 startTime = time.time()
 
 
 #################################################################################
-# PRAS automatically downloads the structure as specified and user does not need#
-# to have the structure present in the directory where this script is located.  #
+# PRAS automatically downloads the structure as specified if it does not exists #
+# in the directory where this script is located.                                #
 # User must have permission to write in this directory.                         #
 # Processing speed will include the internet connection and download speed      #
 #################################################################################
@@ -35,7 +35,7 @@ fixheavyAtoms( pdb_pras='1aho.cif', rotamer="", mutation="", pdb_faspr="", keep_
 # out_no_h.cif is the repaired PDB file written by PRAS, if you use repairPDB() it becomes out_with_h.cif
 assignStructure('out_no_h.cif')
 
-# out_no_h.cif or out_with_h.cif is same as above, cmap options are viridis, magma, inferno, jet, plasma. 
+# out_no_h.cif or out_with_h.cif is same as above, cmap options are viridis, magma, inferno, jet, plasma.
 ramachandranTypes('out_no_h.cif', cmap = "")
 
 print ('The program took {0} second !'.format(time.time() - startTime))
