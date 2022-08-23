@@ -38,11 +38,11 @@ from pkg_resources import resource_stream
 
 def ramachandranTypes(filename, cmap = ""):
 	"""
-	This program plots 4 types of Ramanchandran 
-	(general, glycine,proline,pre-proline) in TIF format 
+	This program plots 4 types of Ramanchandran
+	(general, glycine,proline,pre-proline) in TIF format
 
-	This funtion & the dependency (ReadStructure.py) read PRAS 
-	output PDB file in a quick and complex manner. Since it is a 
+	This funtion & the dependency (ReadStructure.py) read PRAS
+	output PDB file in a quick and complex manner. Since it is a
 	PRAS output there will not be error (missing atoms, bad format, etc).
 
 	In general, this program can be used for any standard PDB file.
@@ -72,9 +72,9 @@ def ramachandranTypes(filename, cmap = ""):
 							  for i in range(len(chains))]
 		except:
 			print('{} could not be read, check the file and format.'
-				 '\n' 'Perhaps it should be a cif but you specified pdb.'
+				 '\n' 'Perhaps it should be a pdb but you specified cif.'
 				  ' Ramanchandran''\n''types could not be plotted'.format(filename))
-			sys.exit(1)			
+			sys.exit(1)
 
 	elif _format == '.pdb':
 		try:
@@ -83,7 +83,7 @@ def ramachandranTypes(filename, cmap = ""):
 			chains  = [i for i,j in enumerate(rf) if j[:3].strip(' ')  == "TER"]
 		except:
 			print('{} could not be read, check the file and format.'
-				 '\n' 'Perhaps it should be a pdb but you specified cif.'
+				 '\n' 'Perhaps it should be a cif but you specified pdb.'
 				  ' Ramanchandran''\n''types could not be plotted'.format(filename))
 			sys.exit(1)
 
@@ -110,7 +110,7 @@ def ramachandranTypes(filename, cmap = ""):
 
 		if not cmap:
 			cmap='viridis'
-		alpha=0.75; dpi=100 
+		alpha=0.75; dpi=100
 		fig, ax = plt.subplots(2,2,figsize=(9.5, 9), dpi=dpi)
 		Z = np.fromfile(resource_stream(__name__, 'data/KD.dat'))
 		Z = np.reshape(Z, (100, 100))
@@ -176,7 +176,7 @@ def ramachandranTypes(filename, cmap = ""):
 		ax[1,0].scatter(proline_phi, proline_psi, marker='.', s=3, c="k")
 		ax[0,1].scatter(glycine_phi, glycine_psi, marker='.', s=3, c="k")
 		ax[1,1].scatter(preproline_phi, preproline_psi, marker='.', s=3, c="k")
-		
+
 		plt.savefig('ramachandra'+'_'+'chain'+str(n+1)+'.tif')
 		plt.close(fig)
 

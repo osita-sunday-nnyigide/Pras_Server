@@ -8,7 +8,7 @@ This module, test.py can be used to test PRAS
 
 with a total of 576 PDB IDs. There are  two lists
 
-that have been imported,  _82_pdbs, and _494_pdbs 
+that have been imported,  _82_pdbs, and _494_pdbs
 
 """
 
@@ -31,9 +31,8 @@ __status__     = "Production"
 __date__       = "May 11, 2022"
 
 
-import os
 import time
-from Pras_Server.PRAS import repairPDB 
+from Pras_Server.PRAS import repairPDB
 from Pras_Server.PDBID import  _82_pdbs, _494_pdbs
 from Pras_Server.FixHeavyAtoms import fixheavyAtoms
 from Pras_Server.RamaChandra import ramachandranTypes
@@ -43,7 +42,7 @@ from Pras_Server.SecondaryStructure import assignStructure
 
 ##################################################################################
 # Note that some of the PDB files have up to 24 chains and each chain will       #
-# be analyzed (SS assignment and ramachandran plots).PRAS overwrites each        # 
+# be analyzed (SS assignment and ramachandran plots).PRAS overwrites each        #
 # ouput file, except plots with numbers that the subsequent ones do not get      #
 # up to (plot with number ending 7 or 8 cannot be overwritten except another     #
 # structure has up to such number of chains, then it overwrites the previous).   #
@@ -60,13 +59,13 @@ from Pras_Server.SecondaryStructure import assignStructure
 # bitmap allocation failed. During our test we processed the whole 494 PDB IDs,  #
 # assigned the SS elements and plotted the ramachandran types                    #
 #                                                                                #
-# Perhaps you should start the test with _82_pdbs which are distinct from        # 
+# Perhaps you should start the test with _82_pdbs which are distinct from        #
 # _494_pdbs. When combined together, there are 576 PDB IDs!                      #
 #                                                                                #
 # Acess to internet is required for this test and the processing speed is subject#
-# to your internet download sped.                                                #
+# to your internet download speed.                                               #
 ##################################################################################
- 
+
 
 
 startTime = time.time()
@@ -83,7 +82,7 @@ for i in _82_pdbs:
         #  chain_no="", use this default to process all chains or provide an integer or string number
 		fixheavyAtoms( i+'.cif', rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="")
 
-		# out_no_h.pdb is the output 
+		# out_no_h.pdb is the output
 		# PDB file written by PRAS
 		assignStructure('out_no_h.cif')
 
@@ -91,6 +90,6 @@ for i in _82_pdbs:
 		ramachandranTypes('out_no_h.cif')
 
 		print("fixed {}".format(i))
-	
+
 
 print ('The program took {0} second !'.format(time.time() - startTime))

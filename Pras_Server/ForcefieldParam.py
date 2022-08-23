@@ -4,9 +4,9 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, ForcefieldParam.py is used to 
+This module, ForcefieldParam.py is used to
 
-store the residue names, complete atoms and 
+store the residue names, complete atoms and
 
 force-field parameters for each atom.
 
@@ -33,7 +33,7 @@ __date__       = "May 11, 2022"
 """
 This dictionary holds residue names, complete
 atoms and force-field parameters for each atom.
-Each residue may be in C-terminal, hence OXT is added
+Each residue may be in C-terminal, hence OXT is added.
 For the child dictionary value:
 index 0 = charge
 index 1 = sigma(nm)

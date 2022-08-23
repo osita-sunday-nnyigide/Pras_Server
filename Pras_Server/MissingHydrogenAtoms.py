@@ -4,11 +4,11 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, MissingHydrogenAtoms.py has all 
+This module, MissingHydrogenAtoms.py has all
 
 the functions required to fix missing hydrogen
 
-atoms. These functions represent the 20 common 
+atoms. These functions represent the 20 common
 
 amino acid residues and other extra functions.
 
@@ -33,8 +33,8 @@ __status__     = "Production"
 __date__       = "May 11, 2022"
 
 import copy
-from . import LinearAlgebra
 from math import sqrt
+from . import LinearAlgebra
 from . import PotentialEnergy
 
 def arginine_h(ires,i="",nextres=None):
@@ -1137,6 +1137,8 @@ def his_note(resNo, chainNo):
         resNo = resNo[:-1]
     with open('log.txt', 'a') as f:
         f.write('HIS {} in chain {} is protonated (+1 charge)'\
+        '. Comment line 470 in PRAS.py to turn it off'
+        ' (ref @ www.protein-science.com)'
         .format(resNo,chainNo)+'\n\n')
 
 def get_hd1(ires):

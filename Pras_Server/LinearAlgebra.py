@@ -4,11 +4,11 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, LinearAlgebra.py has all the 
+This module, LinearAlgebra.py has all the
 
 algebraic functions used to fix missing
 
-hydrogen atoms. 
+hydrogen atoms.
 
 """
 
@@ -431,7 +431,7 @@ def tyr_HH(pos_OH,pos_CZ,pos_CE2):
     vec1  = [pos_h[i] - pos_OH[i] for i in range(3)]
     const = 0.96/sqrt(sum([(pos_h[i] - pos_OH[i])**2 for i in range(3)]))
     vec3  = [vec1[i]*const for i in range(3)]
-    
+
     pos_hh = [vec3[i]+pos_OH[i] for i in range(3)]
 
     return pos_hh
