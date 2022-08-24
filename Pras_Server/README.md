@@ -1,4 +1,4 @@
-Pras Server is a library to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structure by amide-amide interactions of the backbone
+Protein Repair and Analysis (PRAS) Server is a library to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structures by amide-amide interactions of the backbone
 
 You can use the server online at https://www.protein-science.com/ or on your local machine following the instructions given below
 
@@ -19,7 +19,7 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
-`pip install Pras-Server==1.0.7`
+`pip install Pras-Server==1.0.8`
 
 ## PRAS usage
 
@@ -37,9 +37,7 @@ stored. Whilst in the folder, create a python document (e.g. testpras.py). Enter
 from Pras_Server import test
 ```
 
-The above will download and analyze 82 or 494 protein structures. One can modify test.py to process either of the lists
-
-or comment the SS assignment and Ramachandran plots to save memory (if you  encounter failed to allocate bitmap)
+The above will download and analyze 82 or 494 protein structures. One can modify test.py to process either of the lists or comment the SS assignment and Ramachandran plots to save memory (if you encounter failed to allocate bitmap error)
 
 For users that do not want to do the above comprehensive test, instructions are given below to process a 
 
@@ -147,9 +145,10 @@ Note that VcXsrv must be open/running each time you use plotting tools in WSL
 
 Bear in mind that PRAS uses a particular name for the output file and will automatically remove the file during another run. To process multiple files at the same time, concatenate the file name with PRAS dafault name in the appropriate .py file in your installation folder. Alternatively you can download the whole PRAS source code at https://www.protein-science.com/ and modify the software as deemed fit before installation.
 
-PRAS is being considered for publication and the link to the paper will be provided as a reference when published. In the meantime you can cite PRAS as:
+PRAS has been peer reviewed and published. Please cite PRAS as:
 
-O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. PRAS: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms and Assign Secondary Structure by Amide Interactions. Submitted
+O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms and Assign Secondary Structure by Amide Interactions. 
+J. Chem. Inf. Model., 2022.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
