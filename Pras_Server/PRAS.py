@@ -20,7 +20,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.7"
+__version__    = "1.0.8"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -462,7 +462,7 @@ def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no):
                         apos,name=notDisulfide(x[i],i,resNo[i],atom,atmpos,resNo,resseq)
                         res_pos.extend([apos])
                         atom_name.extend([name])
-                        
+
         """
         Next code line randomly protonates 20% of all HIS residues
         comment next code line if you want all HIS side-chain neutral

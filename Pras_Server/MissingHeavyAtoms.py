@@ -4,11 +4,11 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, MissingHeavyAtoms.py has all 
+This module, MissingHeavyAtoms.py has all
 
 the functions required to fix missing heavy
 
-atoms. These functions represent the 20 common 
+atoms. These functions represent the 20 common
 
 amino acid residues and other extra functions.
 
@@ -22,7 +22,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.7"
+__version__    = "1.0.8"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -147,7 +147,7 @@ def calcTorsionAngle(coord1, coord2, coord3, coord4):
 
     if dot(pvec13, cross(pvec24, bvec32)) < 0:
         radian = -radian
-        
+
     return degrees(radian)
 
 def get_chi(atom_1, atom_2, atom_3, atom_4, resNum, chainNum,faspr):
@@ -226,7 +226,7 @@ def addBackbone(N, CA, C, atmpos, psi):
             O = calcCoordinate(N,CA,C,1.23,120.5,i)
             if calcDistance(O,atmpos[0]) > 2.0:
                 break
-                
+
     return O
 
 def c_termini(atom,pos):
@@ -325,18 +325,18 @@ def repairSer(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
 
             N_CA_CB_OG_diangle = []
 
-    """ 
-    We think that PRAS is more flexible than faspr 
-    when it comes to reading PDB files (especially 
-    in regards to generating different conformers 
+    """
+    We think that PRAS is more flexible than faspr
+    when it comes to reading PDB files (especially
+    in regards to generating different conformers
     when there are point mutations and/or rotamers.
 
     So, in rare cases where the PDB file contains
-    point mutation and user opts for residue with 
-    lower occupancy, faspr-named atoms  may not 
+    point mutation and user opts for residue with
+    lower occupancy, faspr-named atoms  may not
     correspond to PRAS. Therefore, this maneuver
     ensures that if faspr is supplied and PRAS fail to
-    get required chi using the regular atom names, 
+    get required chi using the regular atom names,
     a default chi will be used.
 
     """
@@ -346,7 +346,7 @@ def repairSer(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
 
     if not faspr:
 
-        N_CA_CB_OG_diangle = -63.3        
+        N_CA_CB_OG_diangle = -63.3
 
     # for SER, fixing OG, requires flexible chi
     require_chi = ['OG']
@@ -646,7 +646,7 @@ def repairAsp(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
     if not faspr:
 
         CA_CB_CG_OD1_diangle = -46.7
-        
+
         N_CA_CB_CG_diangle = -66.4
 
     CA_CB_CG_OD2_diangle = 180 + CA_CB_CG_OD1_diangle
@@ -694,7 +694,7 @@ def repairGln(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
     atoms of the GLN residue.
     See repairSer() for full annotation
     """
-    
+
     N  = coord[atoms.index('N')]
     CA = coord[atoms.index('CA')]
     C  = coord[atoms.index('C')]
@@ -928,7 +928,7 @@ def repairArg(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
         CA_CB_CG_CD_diangle = -179.2
 
         CB_CG_CD_NE_diangle = -179.3
-        
+
         CG_CD_NE_CZ_diangle = -178.7
 
     # for ARG, fixing CG,CD,NE,CZ require flexible chi

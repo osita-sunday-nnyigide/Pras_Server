@@ -4,11 +4,11 @@ __doc__ = """
 
 This program requires python 3.6 or higher.
 
-This module, DownloadPDB.py is used to 
+This module, DownloadPDB.py is used to
 
 automatically download a PDB file if it
 
-does not exist in user's directory 
+does not exist in user's directory
 
 where Pras_Server program is run.
 
@@ -22,7 +22,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.7"
+__version__    = "1.0.8"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -48,10 +48,10 @@ def downloadFile(code):
 
     Arguments
     ----------
-    code: this can be a 4 letter code or 
-          code+format, i.e., it accepts xxxx or 
-          xxxx.pdb or xxxx.cif. The default 
-          behaviour is to download .pdb if the 
+    code: this can be a 4 letter code or
+          code+format, i.e., it accepts xxxx or
+          xxxx.pdb or xxxx.cif. The default
+          behaviour is to download .pdb if the
           format is not specified.
 
     Returns
@@ -77,7 +77,7 @@ def downloadFile(code):
     f_out = os.path.join(path, 'pdb'+'{}.{}'.format(code, f_format))
 
     if os.path.exists(f_out):
-        return 
+        return
 
     try:
         urlcleanup()
@@ -91,5 +91,5 @@ def downloadFile(code):
             with open(f_out, "wb") as out:
                 out.writelines(gz)
         os.remove(f_in)
-        
-    return 
+
+    return

@@ -14,7 +14,7 @@ only one rotamer to be written to file. In the
 
 case of point mutation it allows one residue to
 
-be written to file. 
+be written to file.
 
 """
 
@@ -26,7 +26,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.7"
+__version__    = "1.0.8"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -46,10 +46,10 @@ DNA entries normally start with ATOM record
 so this list is used to eliminate all such atoms
 """
 heay_atoms = [
-              'N', 'CA', 'C', 'O', 'CB', 'CG', 'OD1', 
-              'OD2', 'OXT', 'CD',   'CE','NZ', 'OG', 
-              'CG1', 'CG2', 'CD1', 'CD2', 'OG1', 'CE2', 
-              'CE3', 'NE1', 'CZ2', 'CZ3', 'CH2', 'NE', 
+              'N', 'CA', 'C', 'O', 'CB', 'CG', 'OD1',
+              'OD2', 'OXT', 'CD',   'CE','NZ', 'OG',
+              'CG1', 'CG2', 'CD1', 'CD2', 'OG1', 'CE2',
+              'CE3', 'NE1', 'CZ2', 'CZ3', 'CH2', 'NE',
               'CZ', 'NH1', 'NH2', 'ND2', 'NE2', 'OE1',
               'SG', 'OE2', 'ND1', 'CE1', 'SD', 'OH'
               ]
@@ -166,14 +166,14 @@ class Chain:
     l_copy = copy.deepcopy(self._hetatm)
     self._hetatm.clear()
     return l_copy
-      
+
   def insertAtom(self,i,atom,):
     # insert the atoms of residues of
     # of each chain.
     self._chain[i].appendAtom(atom)
 
   def appendResidue(self,res,ocpancy,mutation):
-    # list is initially empty. Append the 
+    # list is initially empty. Append the
     # holder for the residue in question
     if not self._chain:
       self._chain.append(res)
@@ -231,7 +231,7 @@ class Chains:
 
 
     keep_ligand: by default ligands are not kept but
-                 user can supply any string as argument 
+                 user can supply any string as argument
                  in order to keep ligands
 
     Returns
@@ -257,7 +257,7 @@ class Chains:
 
         if (res_num!=atom.res_num) or (res_insert!=atom.res_insert) or\
            (res_num==atom.res_num and res_type!=atom.res_type):
-           
+
           residue = Residue(atom.res_type,atom.chain_id,atom.res_num,atom.res_insert,atom.ocpancy)
 
           # first create Chain instance that will contain atoms of residues
@@ -322,14 +322,14 @@ def getChains(fname,rotamer,mutation,faspr, keep_ligand):
                by default.
 
   mutation:    supply "no" if you need to generate lower occupancy conformers,
-               if not supply "". PRAS uses the residue with highest occupancy by 
+               if not supply "". PRAS uses the residue with highest occupancy by
                default if two residues are given same residue number
 
   faspr:       the PDB file obtained from FASPR
                (by running the same PDB supplied to PRAS).
 
   keep_ligand: by default ligands are not kept but
-               user can supply any string as argument 
+               user can supply any string as argument
                in order to keep ligands
   Returns
   -------
@@ -340,7 +340,7 @@ def getChains(fname,rotamer,mutation,faspr, keep_ligand):
   for i in range(len(f_data)):
     z = f_data[i]
     """
-    for each chain, gather all the residues, atom names, atom coords, etc. 
+    for each chain, gather all the residues, atom names, atom coords, etc.
     [0]=resn+resNo+res_insert,[1]=atm_pos,[2]=atm_name,[3]=resn_No
     """
     chains[i].append(list(itertools.chain(*[z[j][0] for j in range(len(z))])))

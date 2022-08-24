@@ -8,7 +8,7 @@ This module, ReadStructure.py is used to
 
 read .pdb or .cif files written by Pras_Server.
 
-The purpose is to return data used to assign 
+The purpose is to return data used to assign
 
 secondary structure or draw Ramanchandran plots
 
@@ -22,7 +22,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.7"
+__version__    = "1.0.8"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -40,14 +40,14 @@ def calcTorsionAngle(coord1, coord2, coord3, coord4):
     """
     Given 4 known atom coordinates this function
     calculates the dihedral angle defining the atoms
-    
+
     Arguments
     ----------
-    coord1: the first 3D point 
+    coord1: the first 3D point
     coord2: the second 3D point
     coord3: the third 3D point
     coord4: the fourth 3D point
-    
+
     Returns
     -------
     Float: the calculated angle in degrees
@@ -74,18 +74,18 @@ def calcTorsionAngle(coord1, coord2, coord3, coord4):
 
     if dot(pvec13, cross(pvec24, bvec32)) < 0:
         radian = -radian
-        
+
     return degrees(radian)
 
 def calcDistance (m, n):
     """
     This function calculates the distance between two points
-    
+
     Arguments
     ----------
-    m:   the first 3D point 
+    m:   the first 3D point
     n:   the second 3D point
-    
+
     Returns
     -------
     Float: the calculated distance
@@ -96,13 +96,13 @@ def calcDistance (m, n):
 def alpha_helix(chain_i, _format):
     """
     This function generates measurements required to assign alpha-helix
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
-    
+
     Returns
     -------
     A list: the calculated measurements
@@ -140,13 +140,13 @@ def alpha_helix(chain_i, _format):
 def _310helix(chain_i, _format):
     """
     This function generates measurements required to assign 310-helix
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
-    
+
     Returns
     -------
     A list: the calculated measurements
@@ -184,13 +184,13 @@ def _310helix(chain_i, _format):
 def pi_helix(chain_i, _format):
     """
     This function generates measurements required to assign pi-helix
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
-    
+
     Returns
     -------
     A list: the calculated measurements
@@ -229,13 +229,13 @@ def pi_helix(chain_i, _format):
 def beta_turn(chain_i, _format):
     """
     This function generates measurements required to assign beta-turn
-    
+
     Arguments
     ----------
     chain_i: a list that represents the entire single chain of a PDB file
 
-    _format: the file format 
-    
+    _format: the file format
+
     Returns
     -------
     A list: the calculated measurements
@@ -274,11 +274,11 @@ def beta_turn(chain_i, _format):
 def amideDihedral(chain_i, _format):
     """
     This function generates amide dihedral angle required to assign Sec. Struc.
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
-    
+    chain_i: a list that represents the entire single chain of a PDB file
+
     _format: the file format
 
     Returns
@@ -327,11 +327,11 @@ def amideDihedral(chain_i, _format):
 def psiDihedral(chain_i, _format):
     """
     This function generates psi dihedral angle required to assign Sec. Struc.
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
-    
+    chain_i: a list that represents the entire single chain of a PDB file
+
     _format: the file format
 
     Returns
@@ -381,18 +381,18 @@ def psiDihedral(chain_i, _format):
 def phiDihedral(chain_i, _format):
     """
     This function generates phi dihedral angle required to assign Sec. Struc.
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
-    
+    chain_i: a list that represents the entire single chain of a PDB file
+
     _format: the file format
 
     Returns
     -------
     A list: the calculated dihedral angle
 
-    """ 
+    """
 
     chain_i = chain_i[2:]
 
@@ -435,10 +435,10 @@ def phiDihedral(chain_i, _format):
 def resChain(chain_i, _format):
     """
     This function generates the chain ID
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
 
@@ -453,7 +453,7 @@ def resChain(chain_i, _format):
         for lines in chain_i:
             if lines[13:16].rstrip() == 'C':
                 chain   = lines[21:22]
-                chain_list.append(chain) 
+                chain_list.append(chain)
     else:
         for lines in chain_i:
             if lines.split()[3] == 'C':
@@ -465,10 +465,10 @@ def resChain(chain_i, _format):
 def resName(chain_i, _format):
     """
     This function generates the three letter residue code
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
 
@@ -495,10 +495,10 @@ def resName(chain_i, _format):
 def nextRes(chain_i, _format):
     """
     This function generates the Ramachandran type
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
 
@@ -541,10 +541,10 @@ def nextRes(chain_i, _format):
 def resNumber(chain_i, _format):
     """
     This function generates the residue number
-    
+
     Arguments
     ----------
-    chain_i: a list that represents the entire single chain of a PDB file 
+    chain_i: a list that represents the entire single chain of a PDB file
 
     _format: the file format
 
