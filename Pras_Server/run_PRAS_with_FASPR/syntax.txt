@@ -2,7 +2,7 @@ Compile FASPR
 `g++ -ffast-math -O3 -o FASPR src/*.cpp`
 
 Install PRAS server
-`pip install Pras-Server==1.0.7`
+`pip install Pras-Server==1.0.8`
 
 Execute to run PRAS with FASPR output PDB
 `./FASPR –i 1aho.pdb -o out.pdb;python3 linux_example.py 1aho.pdb "" "" out.pdb "" ""`
