@@ -17,7 +17,7 @@ startTime = time.time()
 
 
 #################################################################################
-# PRAS automatically downloads the structure as specified if it does not exists #
+# PRAS automatically downloads the structure as specified if it does not exist  #
 # in the directory where this script is located.                                #
 # User must have permission to write in this directory.                         #
 # Processing speed will include the internet connection and download speed      #
