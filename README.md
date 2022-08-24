@@ -147,7 +147,7 @@ Bear in mind that PRAS uses a particular name for the output file and will autom
 
 PRAS has been peer reviewed and published. Please cite PRAS as:
 
-O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms and Assign Secondary Structure by Amide Interactions. 
+O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms, and Assign Secondary Structures by Amide Interactions. 
 J. Chem. Inf. Model., 2022.
 
 ## License
