@@ -167,7 +167,7 @@ def _optmize(pos_CA,pos_CB,pos_OG1,pos_HG1,BL,di):
     CB_OG1_HG1_angle = 109.5
     opt_h = []
 
-    for i in range(0, 360, 30):
+    for i in range(0, 360, 60):
         point_h = calcCoordinate(pos_CA,pos_CB,pos_OG1,BL,CB_OG1_HG1_angle,di)
         point_h = recalcCoordinate(pos_CB,pos_OG1,point_h,BL)
         opt_h.extend([point_h])
