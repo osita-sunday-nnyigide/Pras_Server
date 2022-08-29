@@ -416,7 +416,7 @@ def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no):
                 class6 H-atoms with rotational freedom. These H-atoms are optimized with a
                 potential energy function that may affect the computational time. You can go
                 to PotentialEnergy.py and look for "optimize()" function and decrease/increase
-                the rotation interval. Currently, it is set to 45 degrees but in the online PRAS
+                the rotation interval. Currently, it is set to 60 degrees but in the online PRAS
                 server it is set to a lower value.
 
                 If you are not interested in the optimization, go to MissingHydrogenAtoms.py
