@@ -123,7 +123,7 @@ def repairNotes(resNo,chain,missing):
     None:    it writes to a text file
     """
     with open('log.txt', 'a') as log:
-        log.write('The residue No {} in chain {} have '
+        log.write('The residue No {} in chain {} has '
                   'missing atom(s) {}. We have fixed it'
                   .format(resNo, chain,missing)+'\n\n')
 
