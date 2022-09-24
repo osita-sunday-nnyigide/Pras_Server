@@ -214,8 +214,10 @@ def invalid_pdb_file():
     """
     with open('invalid_pdb_file.txt', 'w') as f:
         f.write('Error occured while reading the PDB file'+'\n')
-        f.write('Visit www.protein-science.com and click How-tos'
-               ' to see what PRAS expects'+'\n')
+        f.write('For a .pdb format, ensure that each chain ends' 
+               ' with TER and the last chain TER+END.'+'\n')
+        f.write('Also, visit www.protein-science.com and' 
+               ' click "How-tos" for more information')
 
         sys.exit(1)
 
@@ -337,7 +339,7 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
     except:
         chains = []
 
-    if not chains:
+    if not chains or not chains[0]:
         invalid_pdb_file()
 
     """
