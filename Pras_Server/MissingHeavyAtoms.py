@@ -1426,6 +1426,10 @@ def repairHis(atoms,coord,resNo,chain,missing,faspr,nextres='',psi=''):
     try:
         CD2 = coord[atoms.index('CD2')]
     except:
+        CA_CB_CG_ND1_diangle = calcTorsionAngle(CA, CB, CG, ND1)
+
+        CA_CB_CG_CD2_diangle = 180.0 + CA_CB_CG_ND1_diangle
+
         CD2 = calcCoordinate(CA, CB, CG, 1.35, 130.61, CA_CB_CG_CD2_diangle)
 
     try:
