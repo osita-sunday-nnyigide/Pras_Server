@@ -529,7 +529,7 @@ def nextRes(chain_i, _format):
         elif resn[i] == 'GLY':
             restype = 'Glycine'
             restype_list.append(restype)
-        elif resn[(i+1)% len(resn)] =='PRO' and resn[i] != resn[-1]:
+        elif resn[(i+1)% len(resn)] =='PRO' and i != (len(resn)-1):
             restype = 'Pre-Pro'
             restype_list.append(restype)
         else:
