@@ -61,7 +61,7 @@ When the download is complete, remove the python files and _pycache_ created in 
 Now make the shell.sh script supplied with this distribution executable and execute it as follows:
 
 chmod +x shell.sh
-./shell.sh
+time ./shell.sh
 
 This will call PRAS and pass all default arguments required to repair and analyze the 713 proteins. PlotStructure.py is 
 commented out in shell.sh. In windows subsystem for linux, one must have X-server installed and running before using graphics. 
