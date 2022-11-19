@@ -6,21 +6,6 @@ The difference between this and the python counterpart is the processing speed. 
 
 You can use the PRAS server online at https://www.protein-science.com/ or on your local machine following the instructions in the INSTALL file included with this distribution.
 
-The library consists of:
-```python
-Tools to automatically download PDB or mmCIF structures
-
-Tools to generate different rotamers if present in a PDB or mmCIF structure file
-
-Tools to replace missing heavy atoms or entire side-chain
-
-Tools to add hydrogen atoms, including optimization of those with rotational freedom
-
-Tools to assign secondary structure elements by amide-amide interactions of the backbone
-
-Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-proline)
-```
-
 PRAS has been peer reviewed and published. Please cite PRAS as:
 
 O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms, and Assign Secondary Structures by Amide Interactions.
