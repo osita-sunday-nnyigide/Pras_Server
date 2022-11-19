@@ -65,6 +65,7 @@ chmod +x shell.sh
 time ./shell.sh
 
 This will call PRAS and pass all default arguments required to repair and analyze the 713 proteins. PlotStructure.py is 
-commented out in shell.sh. In windows subsystem for linux, one must have X-server installed and running before using graphics. 
+commented out in shell.sh. Do not forget to set the -s flag to yes if you intend to plot the secondary structure.
+In windows subsystem for linux, one must have X-server installed and running before using graphics. 
 Detailed information on X-server is given in the README supplied with the python distribution of PRAS server.
 
