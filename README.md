@@ -1,6 +1,6 @@
 Protein Repair and Analysis (PRAS) Server is a library to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structures by amide-amide interactions of the backbone.
 
-A C++ version of the server that is indepenpent of the python counterpart was released on November 20, 2022. The C++ version is named Pras_Server_C++ and is part of this repository. Both versions produce the same result but the C++ is 9 to 12 times faster than the python version. It was written for those processing hundrends of
+A C++ version of the server that is indepenpent of the python counterpart was released on November 20, 2022. The C++ version is named Pras_Server_C++ and is part of this repository. Both versions produce the same result but the former is 9 to 12 times faster than the python version. It was written for those processing hundrends of
 PDB structures or a single extremely large PDB/mmCIF structure.
 
 You can use the server online at https://www.protein-science.com/ or on your local machine following the instructions given below
