@@ -1,6 +1,6 @@
 #!/bin/bash
 
-target="cif/$1"
+target="pdb/$1"
 
 for f in "$target"*
 do
