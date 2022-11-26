@@ -43,7 +43,7 @@ In C++, plotting graph is not as easy as in python. So we use the output of the 
 structure written by the C++ version of PRAS and plot the values with a python code named PlotStructure.py that is included 
 with this distribution. So, if you want to process a PDB structure and plot the data, the correct usage will be:
 
-./PRAS -i in.pdb -f faspr.pdb -r yes -m yes -l no -h no -p no -s no;python3 PlotStructure.py jet
+./PRAS -i in.pdb -f faspr.pdb -r yes -m yes -l no -h no -p no -s yes;python3 PlotStructure.py jet
  
 
 COMPREHENSIVE TEST WITH 713 PDB IDs
