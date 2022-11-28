@@ -11,7 +11,7 @@ See the included LICENSE file
   	cout<<"**Now assigning secondary structure elements...\n"<<endl;
   	VS  cid, SSA; VVS resn, resno, dtype, tSSA; VI cnt;
   	VVF ahlx, amdih, _3hlx, btn, phid, psid, phlx;
-    if (ftype == 'b')      getChains("out.pdb", " ", " ", " ", " ");
+    if (ftype == 'b'||ftype=='t')      getChains("out.pdb", " ", " ", " ", " ");
     else if (ftype == 'f') getMMCIFChains("out.cif", " ", " ", " ");
     resn  = resName();     
     resno = resNumber();     
