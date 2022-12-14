@@ -11,8 +11,8 @@ void CheckMissingAtoms::repairNotes(string num, string id, vector<string> v)
     	num.erase(remove_if(num.begin(),num.end(),::isspace),num.end());
         ofstream file("log.txt", ios_base::app);
         ostream_iterator<string> cout_it(file, " ");
-        file<<"Residue No."<< num <<" in chain " 
-             <<id<< " has missing atom(s) [";
+        file<<"Residue No."<< num <<" in chain" 
+             <<id<< "has missing atom(s) [";
              copy(v.begin(), v.end(), cout_it);
         file<<"]. We have fixed it.\n\n";
     }
