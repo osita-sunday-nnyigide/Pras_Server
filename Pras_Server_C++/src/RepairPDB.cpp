@@ -46,7 +46,7 @@ void OutputStructure:: writeOutput(char format)
                 ofile<<atomType(chains[i].res_atom[j])
                 <<" "<<chains[i].res_type<<" "
                 <<chains[i].c_id<<setw(4)<<chains[i].res_num
-                <<chains[i].res_insert<<"   ";
+                <<setw(1)<<chains[i].res_insert<<"   ";
                 for(int k=0;k<3;k++)
                   {
                     ofile<<setw(8)<<chains[i].res_pos[j][k];
