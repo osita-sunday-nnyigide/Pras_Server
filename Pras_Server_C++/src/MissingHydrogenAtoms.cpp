@@ -1084,7 +1084,7 @@ void AddMissingHydrogenAtons::his_note(string resNo, string chainID)
         resNo.erase(remove_if(resNo.begin(),resNo.end(),::isspace),resNo.end());
         ofstream file("log.txt", ios_base::app);
         file<<"HIS No."<< resNo <<" in chain" 
-             <<chainID<< "is protonated (+1 charge)";
+             <<chainID<< " is protonated (+1 charge)";
         file<<"(ref @ www.protein-science.com).\n\n";   
     }
 
