@@ -48,8 +48,11 @@ def ramachandranAndSecondaryStructure(cmap = ""):
 			proline_phi, proline_psi = [float(i.split()[0]) for i in pro], [float(i.split()[1]) for i in pro]
 			pre_pro_phi, pre_pro_psi = [float(i.split()[0]) for i in pre], [float(i.split()[1]) for i in pre]
 
-
-			cmap = sys.argv[1] if len(sys.argv) > 0 else 'viridis'
+			try:
+				cmap = sys.argv[1]
+			except:
+				cmap = 'viridis'
+				
 			alpha=0.75; dpi=100
 			fig, ax = plt.subplots(2,2,figsize=(9.5, 9), dpi=dpi)
 			Z = np.fromfile(resource_stream(__name__, 'data/KD.dat'))
