@@ -28,6 +28,7 @@ USAGE
 ./PRAS -i in.pdb -f faspr.pdb -r yes -m yes -l no -h no -p no -s no
 
 -i (input)     enter input PDB to repair and/or analyze
+
 -f (faspr)     enter input PDB as obtained from FASPR or a dummy value to use default chi
 
 -r (rotamer)   enter yes to use high occupancy atoms or a dummy value for low occupancy
@@ -50,7 +51,7 @@ OPTIONAL
 -k (keep)   enter yes to keep the log file. All fixed PDBs will be mentioned by name in the log file so that you 
             can identify the ones whose atoms were fixed.  
 
-To understand this OPTIONAL flags, execute the shell.sh to process 713 PDBs. It has been programmed to name all the output files
+To understand these OPTIONAL flags, execute the shell.sh to process 713 PDBs. It has been programmed to name all the output files
 
 by PDB 4 letter code
 
