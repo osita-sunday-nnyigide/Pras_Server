@@ -29,21 +29,31 @@ USAGE
 
 -i (input)     enter input PDB to repair and/or analyze
 -f (faspr)     enter input PDB as obtained from FASPR or a dummy value to use default chi
+
 -r (rotamer)   enter yes to use high occupancy atoms or a dummy value for low occupancy
+
 -m (mutation)  enter yes to use high occupancy atoms or a dummy value for low occupancy
+
 -l (ligand)    enter yes to keep non-water ligands or a dummy value to ignore them
+
 -h (hydrogen)  enter yes to add hydrogen atoms or a dummy value to do otherwise
+
 -p (protonate) enter yes to protonate 20% of histidines or a dummy value to do otherwise
+
 -s (structure) enter yes to assign secondary structure elements or a dummy value to do otherwise
 
 OPTIONAL
 
 -o (output) enter your preferred output name to keep processed file when processing multiple files, otherwise it will 
+
             be named out.pdb and removed if you process another PDB
+            
 -k (keep)   enter yes to keep the log file. All fixed PDBs will be mentioned by name in the log file so that you 
+
             can identify the ones whose atoms were fixed.  
 
 To understand this OPTIONAL flags, execute the shell.sh to process 713 PDBs. It has been programmed to name all the output files
+
 by PDB 4 letter code
 
 PLOTTING GRAPH
