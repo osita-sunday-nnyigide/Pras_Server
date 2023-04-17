@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
 {
     cout<<string(60,'*')<<"\n";
-    cout<<"            PRAS 1.0.10"<<endl;
+    cout<<"            PRAS 1.0.11"<<endl;
     cout<<"Protein Repair and Analysis Server"<<endl;
     cout<<endl;
     cout<<"Copyright (c) 2022 Osita Sunday Nnyigide"<<endl;
