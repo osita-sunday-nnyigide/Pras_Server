@@ -2,13 +2,13 @@ Compile FASPR
 `g++ -ffast-math -O3 -o FASPR src/*.cpp`
 
 Install PRAS server
-`pip install Pras-Server==1.0.10`
+`pip install Pras-Server==1.0.11`
 
 Execute to run PRAS with FASPR output PDB
-`./FASPR –i 1aho.pdb -o out.pdb;python3 linux_example.py 1aho.pdb "" "" out.pdb "" ""`
+`./FASPR –i 1aho.pdb -o output.pdb;python3 linux_example.py 1aho.pdb "" "" output.pdb "" ""`
 
-You will see that both 	assignStructure('out_no_h.pdb') and ramachandranTypes('out_no_h.pdb')
-are commented in linux_example.py and the reason is because you must install X server for Windows
+You will see that both 	secondary structure assignemnt(ss) and ramachandran plot (rama) 
+are set to False and the reason is because you must install X server for Windows
 in order to run Linux GUI applications using Windows Subsystem for Linux (WSL).
 
 Thus, you need to:
@@ -29,4 +29,4 @@ To have the configuration changes take effect, restart bash, or run:
 
 Then open VcXsrv from your taskbar (you should send the icon to taskbar for easy access).
 Note that VcXsrv must be open/running each time you use plotting tools in the linux terminal
-(now uncomment assignStructure('out_no_h.pdb') and ramachandranTypes('out_no_h.pdb') in linux_example.py)
+Now you can set ss True and raman True
