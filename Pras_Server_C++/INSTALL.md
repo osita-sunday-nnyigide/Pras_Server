@@ -45,11 +45,9 @@ USAGE
 OPTIONAL
 
 -o (output) enter your preferred output name to keep processed file when processing multiple files, otherwise it will 
-
             be named out.pdb and removed if you process another PDB
             
 -k (keep)   enter yes to keep the log file. All fixed PDBs will be mentioned by name in the log file so that you 
-
             can identify the ones whose atoms were fixed.  
 
 To understand this OPTIONAL flags, execute the shell.sh to process 713 PDBs. It has been programmed to name all the output files
