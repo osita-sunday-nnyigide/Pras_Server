@@ -1,7 +1,17 @@
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 
 #include "MissingHeavyAtoms.hpp"
@@ -21,14 +31,14 @@ float FixMissingAtoms::get_chi(string a1,string a2,string a3,string a4,Residue &
             {
                 for (int j=0; j<faspr[i].res_atom.size(); j++)
                 {
-                    if (faspr[i].res_atom[j] == a1)       pos1 = faspr[i].res_pos[j]; 
+                    if (faspr[i].res_atom[j] == a1)       pos1 = faspr[i].res_pos[j];
                     else if (faspr[i].res_atom[j] == a2)  pos2 = faspr[i].res_pos[j];
                     else if (faspr[i].res_atom[j] == a3)  pos3 = faspr[i].res_pos[j];
                     else if (faspr[i].res_atom[j] == a4)  pos4 = faspr[i].res_pos[j];
                 }
             try
                 {
-                    if (pos1.empty() || pos2.empty() || pos3.empty() || pos4.empty()) 
+                    if (pos1.empty() || pos2.empty() || pos3.empty() || pos4.empty())
                         {
                              throw 1;
                         }
@@ -37,9 +47,9 @@ float FixMissingAtoms::get_chi(string a1,string a2,string a3,string a4,Residue &
             catch(int i)
                 {
                     cout<<"PRAS failed to get chi for residue No."<<res.res_num<<"in chain "
-                    <<res.c_id<<".\nThis happens if there is a point mutation and" 
-                    "\nyou chosed low occupancy whereas FASPR used high occupancy.\n"
-                    "The solution is to delete high occupancy residue in the PDB submitted\nto" 
+                    <<res.c_id<<".\nThis happens if there is a point mutation and"
+                    "\nyou chose low occupancy whereas FASPR used high occupancy.\n"
+                    "The solution is to delete high occupancy residue in the PDB submitted\nto"
                     " FASPR." <<" PRAS has terminated abnormally*********************"<<endl;
                     exit(1);
                 }
@@ -50,7 +60,7 @@ float FixMissingAtoms::get_chi(string a1,string a2,string a3,string a4,Residue &
     }
 
 BB FixMissingAtoms::addBackbone(V1 N, V1 CA, V1 C, Residue nxtres, float psi)
-    {   
+    {
         V1 O = {};
         if (psi >= 100.0)
             {
@@ -58,17 +68,17 @@ BB FixMissingAtoms::addBackbone(V1 N, V1 CA, V1 C, Residue nxtres, float psi)
                 for (auto i : di)
                     {
                         O = calcCoordinate(N, CA, C, 1.23, 120.5, i);
-                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;                  
+                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;
                     }
             }
         else if (psi > 0.0 && psi < 100.0)
             {
-                V1 di = {-140.0, 140.0, -30.0, 40.0}; 
-                for (auto i : di) 
+                V1 di = {-140.0, 140.0, -30.0, 40.0};
+                for (auto i : di)
                     {
                         O = calcCoordinate(N, CA, C, 1.23, 120.5, i);
-                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;                   
-                    } 
+                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;
+                    }
             }
         else
             {
@@ -76,15 +86,15 @@ BB FixMissingAtoms::addBackbone(V1 N, V1 CA, V1 C, Residue nxtres, float psi)
                 for (auto i : di)
                     {
                         O = calcCoordinate(N, CA, C, 1.23, 120.5, i);
-                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;               
-                    }              
+                        if (_distance(O, nxtres.res_pos[0]) > 2.0) break;
+                    }
             }
         return O;
     }
 
 void FixMissingAtoms::repairSer(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, OG, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, OG, Np, CAp, Cp, OXT;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -105,26 +115,26 @@ void FixMissingAtoms::repairSer(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
             }
         RC require_chi = {"OG"};
         for (auto i: missing_atoms)
-            { 
+            {
                 if (i == "OG")
                     {
                         if(!faspr.empty())
                             {
                                float N_CA_CB_OG_diangle = get_chi("N", "CA", "CB", "OG", res, faspr);
-                               OG = calcCoordinate(N, CA, CB, 1.417, 110.773, N_CA_CB_OG_diangle); 
+                               OG = calcCoordinate(N, CA, CB, 1.417, 110.773, N_CA_CB_OG_diangle);
                             }
                         else
                             {
                                 float N_CA_CB_OG_diangle = -63.3;
-                                OG = calcCoordinate(N, CA, CB, 1.417, 110.773, N_CA_CB_OG_diangle); 
-                            }                   
+                                OG = calcCoordinate(N, CA, CB, 1.417, 110.773, N_CA_CB_OG_diangle);
+                            }
                     }
             }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "OXT") != missing_atoms.end()))
@@ -144,9 +154,9 @@ void FixMissingAtoms::repairSer(Residue &res, Residue &res_p, RC missing_atoms, 
     }
 
 void FixMissingAtoms::repairAla(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres)
-    {   
+    {
         V1 N, CA, C, O, CB, Np, CAp, Cp, OXT;
-        
+
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -168,7 +178,7 @@ void FixMissingAtoms::repairAla(Residue &res, Residue &res_p, RC missing_atoms, 
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
 
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -180,13 +190,13 @@ void FixMissingAtoms::repairAla(Residue &res, Residue &res_p, RC missing_atoms, 
         if (!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB};
-                res.res_atom= {"N", "CA", "C", "O", "CB"};            
-            }    
+                res.res_atom= {"N", "CA", "C", "O", "CB"};
+            }
 
     }
 
@@ -211,7 +221,7 @@ void FixMissingAtoms::repairGly(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                } 
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "OXT") != missing_atoms.end()))
             {
                 OXT = c_termini(N, CA, C, O);
@@ -219,18 +229,18 @@ void FixMissingAtoms::repairGly(Residue &res, Residue &res_p, RC missing_atoms, 
         if (!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "OXT"};           
+                res.res_atom= {"N", "CA", "C", "O", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O};
-                res.res_atom= {"N", "CA", "C", "O"};           
+                res.res_atom= {"N", "CA", "C", "O"};
             }
     }
 
 void FixMissingAtoms::repairAsn(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, CG, OD1, ND2, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, CG, OD1, ND2, Np, CAp, Cp, OXT;
         float CA_CB_CG_OD1_diangle, CA_CB_CG_ND2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -254,11 +264,11 @@ void FixMissingAtoms::repairAsn(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
-            } 
+            }
         RC require_chi = {"CG", "OD1"};
         for (auto i: missing_atoms)
             {
@@ -272,7 +282,7 @@ void FixMissingAtoms::repairAsn(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CG  = calcCoordinate(N, CA, CB, 1.52, 112.62, N_CA_CB_CG_diangle);
                                 OD1 = calcCoordinate(CA, CB, CG, 1.23, 120.85, CA_CB_CG_OD1_diangle);
                                 ND2 = calcCoordinate(CA, CB, CG, 1.33,116.48, CA_CB_CG_ND2_diangle);
-                                goto CTER; 
+                                goto CTER;
                             }
                         else
                             {
@@ -282,7 +292,7 @@ void FixMissingAtoms::repairAsn(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CG  = calcCoordinate(N, CA, CB, 1.52, 112.62, N_CA_CB_CG_diangle);
                                 OD1 = calcCoordinate(CA, CB, CG, 1.23, 120.85, CA_CB_CG_OD1_diangle);
                                 ND2 = calcCoordinate(CA, CB, CG, 1.33,116.48, CA_CB_CG_ND2_diangle);
-                                goto CTER;                             
+                                goto CTER;
                             }
                     }
             }
@@ -299,19 +309,19 @@ void FixMissingAtoms::repairAsn(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, OD1, ND2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "ND2", "OXT"};         
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "ND2", "OXT"};
             }
-        else 
+        else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, OD1, ND2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "ND2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "ND2"};
             }
     }
 
 void FixMissingAtoms::repairGlu(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
         V1 N, CA, C, O, CB, CG, CD, OE1, OE2, Np, CAp, Cp, OXT;
-        float CB_CG_CD_OE1_diangle, CB_CG_CD_OE2_diangle; 
+        float CB_CG_CD_OE1_diangle, CB_CG_CD_OE2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -335,11 +345,11 @@ void FixMissingAtoms::repairGlu(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
-            } 
+            }
 
         RC require_chi = {"CG", "CD", "OE1"};
         for (auto i: missing_atoms)
@@ -367,8 +377,8 @@ void FixMissingAtoms::repairGlu(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CG  = calcCoordinate(N, CA, CB, 1.52, 113.82,N_CA_CB_CG_diangle);
                                 CD  = calcCoordinate(CA, CB, CG,1.52, 119.02,  CA_CB_CG_CD_diangle);
                                 OE1 = calcCoordinate(CB, CG, CD, 1.25, 119.02, CB_CG_CD_OE1_diangle);
-                                OE2 = calcCoordinate(CB, CG, CD, 1.25, 118.08,CB_CG_CD_OE2_diangle);  
-                                goto CTER;                           
+                                OE2 = calcCoordinate(CB, CG, CD, 1.25, 118.08,CB_CG_CD_OE2_diangle);
+                                goto CTER;
                             }
                     }
             }
@@ -385,18 +395,18 @@ void FixMissingAtoms::repairGlu(Residue &res, Residue &res_p, RC missing_atoms, 
         if (!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, OE1, OE2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "OE2", "OXT"}; 
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "OE2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, OE1, OE2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "OE2"};             
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "OE2"};
             }
     }
 
 void FixMissingAtoms::repairAsp(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, CG, CD, OD1, OD2, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, CG, CD, OD1, OD2, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_OD1_diangle, CA_CB_CG_OD2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -420,11 +430,11 @@ void FixMissingAtoms::repairAsp(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
-            } 
+            }
         RC require_chi = {"CG", "OD1"};
         for (auto i: missing_atoms)
             {
@@ -437,8 +447,8 @@ void FixMissingAtoms::repairAsp(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CA_CB_CG_OD2_diangle = 180 + CA_CB_CG_OD1_diangle;
                                 CG  = calcCoordinate(N, CA, CB, 1.52, 113.06, N_CA_CB_CG_diangle);
                                 OD1 = calcCoordinate(CA, CB, CG, 1.25, 119.22, CA_CB_CG_OD1_diangle);
-                                OD2 = calcCoordinate(CA, CB, CG, 1.25, 118.21, CA_CB_CG_OD2_diangle); 
-                                goto CTER;                           
+                                OD2 = calcCoordinate(CA, CB, CG, 1.25, 118.21, CA_CB_CG_OD2_diangle);
+                                goto CTER;
                             }
                         else
                             {
@@ -448,7 +458,7 @@ void FixMissingAtoms::repairAsp(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CG  = calcCoordinate(N, CA, CB, 1.52, 113.06, N_CA_CB_CG_diangle);
                                 OD1 = calcCoordinate(CA, CB, CG, 1.25, 119.22, CA_CB_CG_OD1_diangle);
                                 OD2 = calcCoordinate(CA, CB, CG, 1.25, 118.21, CA_CB_CG_OD2_diangle);
-                                goto CTER;                            
+                                goto CTER;
                             }
                     }
             }
@@ -465,18 +475,18 @@ void FixMissingAtoms::repairAsp(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, OD1, OD2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "OD2", "OXT"}; 
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "OD2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, OD1, OD2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "OD2"};             
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "OD1", "OD2"};
             }
     }
 
 void FixMissingAtoms::repairGln(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, CG, CD, OE1, NE2, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, CG, CD, OE1, NE2, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CB_CG_CD_OE1_diangle, CA_CB_CG_CD_diangle, CB_CG_CD_NE2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -501,7 +511,7 @@ void FixMissingAtoms::repairGln(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -555,13 +565,13 @@ void FixMissingAtoms::repairGln(Residue &res, Residue &res_p, RC missing_atoms, 
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, OE1, NE2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "NE2"};          
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OE1", "NE2"};
             }
     }
 
 void FixMissingAtoms::repairLys(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, CG, CD, CE, NZ, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, CG, CD, CE, NZ, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_CD_diangle, CB_CG_CD_CE_diangle, CG_CD_CE_NZ_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -586,7 +596,7 @@ void FixMissingAtoms::repairLys(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -601,7 +611,7 @@ void FixMissingAtoms::repairLys(Residue &res, Residue &res_p, RC missing_atoms, 
                                 N_CA_CB_CG_diangle  = get_chi("N","CA","CB","CG",res,faspr);
                                 CA_CB_CG_CD_diangle = get_chi("CA","CB","CG","CD",res,faspr);
                                 CB_CG_CD_CE_diangle = get_chi("CB","CG","CD","CE",res,faspr);
-                                CG_CD_CE_NZ_diangle = get_chi("CG","CD","CE","NZ",res,faspr);                        
+                                CG_CD_CE_NZ_diangle = get_chi("CG","CD","CE","NZ",res,faspr);
                                 CG = calcCoordinate(N, CA, CB, 1.52, 113.83, N_CA_CB_CG_diangle);
                                 CD = calcCoordinate(CA, CB, CG, 1.52, 111.79, CA_CB_CG_CD_diangle);
                                 CE = calcCoordinate(CB, CG, CD, 1.46, 111.68, CB_CG_CD_CE_diangle);
@@ -612,7 +622,7 @@ void FixMissingAtoms::repairLys(Residue &res, Residue &res_p, RC missing_atoms, 
                                 N_CA_CB_CG_diangle  = -64.5;
                                 CA_CB_CG_CD_diangle = -178.1;
                                 CB_CG_CD_CE_diangle = -179.6;
-                                CG_CD_CE_NZ_diangle = 179.6;                        
+                                CG_CD_CE_NZ_diangle = 179.6;
                                 CG = calcCoordinate(N, CA, CB, 1.52, 113.83, N_CA_CB_CG_diangle);
                                 CD = calcCoordinate(CA, CB, CG, 1.52, 111.79, CA_CB_CG_CD_diangle);
                                 CE = calcCoordinate(CB, CG, CD, 1.46, 111.68, CB_CG_CD_CE_diangle);
@@ -632,13 +642,13 @@ void FixMissingAtoms::repairLys(Residue &res, Residue &res_p, RC missing_atoms, 
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, CE, NZ};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "CE", "NZ"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "CE", "NZ"};
             }
     }
 
 void FixMissingAtoms::repairArg(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1 N, CA, C, O, CB, CG, CD, NE, CZ, NH1, NH2, Np, CAp, Cp, OXT; 
+        V1 N, CA, C, O, CB, CG, CD, NE, CZ, NH1, NH2, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_CD_diangle, CB_CG_CD_NE_diangle, CG_CD_NE_CZ_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -665,7 +675,7 @@ void FixMissingAtoms::repairArg(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -721,12 +731,12 @@ void FixMissingAtoms::repairArg(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, NE, CZ, NH1, NH2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "NE", "CZ", "NH1", "NH2", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "NE", "CZ", "NH1", "NH2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, NE, CZ, NH1, NH2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "NE", "CZ", "NH1", "NH2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "NE", "CZ", "NH1", "NH2"};
             }
     }
 
@@ -760,7 +770,7 @@ void FixMissingAtoms::repairTyr(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -796,7 +806,7 @@ void FixMissingAtoms::repairTyr(Residue &res, Residue &res_p, RC missing_atoms, 
                                 CE2 = calcCoordinate(CB, CG, CD2, 1.39, 120.0, 180.0);
                                 CZ  = calcCoordinate(CG, CD1, CE1, 1.39, 120.0, 0.0);
                                 OH  = calcCoordinate(CD1, CE1, CZ, 1.39, 119.78, 180.0);
-                                goto CTER;                            
+                                goto CTER;
                             }
                     }
             }
@@ -829,18 +839,18 @@ void FixMissingAtoms::repairTyr(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ, OH, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OH", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OH", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ, OH};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OH"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OH"};
             }
     }
 
 void FixMissingAtoms::repairTrp(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG, CD1, CD2, NE1, OXT, CE2, CE3, CZ2, CZ3, CH2, Np, CAp, Cp; 
+        V1  N, CA, C, O, CB, CG, CD1, CD2, NE1, OXT, CE2, CE3, CZ2, CZ3, CH2, Np, CAp, Cp;
         float N_CA_CB_CG_diangle, CA_CB_CG_CD1_diangle, CA_CB_CG_CD2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -870,7 +880,7 @@ void FixMissingAtoms::repairTrp(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -953,18 +963,18 @@ void FixMissingAtoms::repairTrp(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, NE1, CE2, CE3, CZ2, CZ3, CH2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "NE1", "CE2", "CE3", "CZ2", "CZ3", "CH2", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "NE1", "CE2", "CE3", "CZ2", "CZ3", "CH2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, NE1, CE2, CE3, CZ2, CZ3, CH2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "NE1", "CE2", "CE3", "CZ2", "CZ3", "CH2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "NE1", "CE2", "CE3", "CZ2", "CZ3", "CH2"};
             }
     }
 
 void FixMissingAtoms::repairPhe(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ, Np, CAp, Cp, OXT; 
+        V1  N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_CD1_diangle, CA_CB_CG_CD2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -991,7 +1001,7 @@ void FixMissingAtoms::repairPhe(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1055,18 +1065,18 @@ void FixMissingAtoms::repairPhe(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, CE1, CE2, CZ};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "CE1", "CE2", "CZ"};
             }
     }
 
 void FixMissingAtoms::repairHis(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG, ND1, CD2, CE1, NE2, Np, CAp, Cp, OXT; 
+        V1  N, CA, C, O, CB, CG, ND1, CD2, CE1, NE2, Np, CAp, Cp, OXT;
         float CA_CB_CG_ND1_diangle, N_CA_CB_CG_diangle, CA_CB_CG_CD2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -1092,7 +1102,7 @@ void FixMissingAtoms::repairHis(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1149,19 +1159,19 @@ void FixMissingAtoms::repairHis(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, ND1, CD2, CE1, NE2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "ND1", "CD2", "CE1", "NE2", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "ND1", "CD2", "CE1", "NE2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, ND1, CD2, CE1, NE2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "ND1", "CD2", "CE1", "NE2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "ND1", "CD2", "CE1", "NE2"};
             }
     }
 
 void FixMissingAtoms::repairPro(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
-    {   
+    {
         V1  N, CA, C, O, CB, CG, CD, Np, CAp, Cp, OXT;
-        float N_CA_CB_CG_diangle, CA_CB_CG_CD_diangle; 
+        float N_CA_CB_CG_diangle, CA_CB_CG_CD_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -1183,7 +1193,7 @@ void FixMissingAtoms::repairPro(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1216,18 +1226,18 @@ void FixMissingAtoms::repairPro(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD"};
             }
     }
 
 void FixMissingAtoms::repairMet(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG, SD, CE, Np, CAp, Cp, OXT; 
+        V1  N, CA, C, O, CB, CG, SD, CE, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_SD_diangle, CB_CG_SD_CE_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -1251,7 +1261,7 @@ void FixMissingAtoms::repairMet(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1288,18 +1298,18 @@ void FixMissingAtoms::repairMet(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, SD, CE, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "SD", "CE", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "SD", "CE", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, SD, CE};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "SD", "CE"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "SD", "CE"};
             }
     }
 
 void FixMissingAtoms::repairIle(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG1, CG2, CD1, Np, CAp, Cp, OXT; 
+        V1  N, CA, C, O, CB, CG1, CG2, CD1, Np, CAp, Cp, OXT;
         float N_CA_CB_CG1_diangle, CA_CB_CG1_CD1_diangle, N_CA_CB_CG2_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
@@ -1323,7 +1333,7 @@ void FixMissingAtoms::repairIle(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1369,12 +1379,12 @@ void FixMissingAtoms::repairIle(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG1, CG2, CD1, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG1", "CG2", "CD1", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG1", "CG2", "CD1", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG1, CG2, CD1};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG1", "CG2", "CD1"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG1", "CG2", "CD1"};
             }
     }
 
@@ -1382,7 +1392,7 @@ void FixMissingAtoms::repairLeu(Residue &res, Residue &res_p, RC missing_atoms, 
     {
         V1  N, CA, C, O, CB, CG, CD1, CD2, Np, CAp, Cp, OXT;
         float N_CA_CB_CG_diangle, CA_CB_CG_CD1_diangle, CA_CB_CG_CD2_diangle;
-        
+
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -1405,7 +1415,7 @@ void FixMissingAtoms::repairLeu(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1450,20 +1460,20 @@ void FixMissingAtoms::repairLeu(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, CG, CD1, CD2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "CG", "CD1", "CD2"};
             }
     }
 
 void FixMissingAtoms::repairVal(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
     {
-        V1  N, CA, C, O, CB, CG1, CG2, Np, CAp, Cp, OXT; 
+        V1  N, CA, C, O, CB, CG1, CG2, Np, CAp, Cp, OXT;
         float N_CA_CB_CG1_diangle, N_CA_CB_CG2_diangle;
-        
+
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -1485,7 +1495,7 @@ void FixMissingAtoms::repairVal(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1539,7 +1549,7 @@ void FixMissingAtoms::repairThr(Residue &res, Residue &res_p, RC missing_atoms, 
     {
         V1  N, CA, C, O, CB, OG1, CG2, Np, CAp, Cp, OXT;
         float N_CA_CB_OG1_diangle, N_CA_CB_CG2_diangle;
-        
+
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -1561,7 +1571,7 @@ void FixMissingAtoms::repairThr(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1603,19 +1613,19 @@ void FixMissingAtoms::repairThr(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, OG1, CG2, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "OG1", "CG2", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "OG1", "CG2", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, OG1, CG2};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "OG1", "CG2"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "OG1", "CG2"};
             }
     }
 
 void FixMissingAtoms::repairCys(Residue &res, Residue &res_p, RC missing_atoms, Residue &nxtres, vector<Residue> &faspr)
-    {  
+    {
         V1  N, CA, C, O, CB, SG, Np, CAp, Cp, OXT;
-        float N_CA_CB_SG_diangle; 
+        float N_CA_CB_SG_diangle;
         for (int i = 0; i<res.res_atom.size(); i++)
             {
                 if (res.res_atom[i] == "N")       N  = res.res_pos[i];
@@ -1636,7 +1646,7 @@ void FixMissingAtoms::repairCys(Residue &res, Residue &res_p, RC missing_atoms, 
                 {
                     float psi = calcTorsionAngle(Np, CAp, Cp, N);
                     O = addBackbone(N, CA, C, nxtres, psi);
-                }  
+                }
         if ((find(missing_atoms.begin(),missing_atoms.end(), "CB") != missing_atoms.end()))
             {
                 CB = calcCoordinate(N, C, CA, 1.52, 109.5, 122.66);
@@ -1665,11 +1675,11 @@ void FixMissingAtoms::repairCys(Residue &res, Residue &res_p, RC missing_atoms, 
         if(!OXT.empty())
             {
                 res.res_pos = {N, CA, C, O, CB, SG, OXT};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "SG", "OXT"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "SG", "OXT"};
             }
         else
             {
                 res.res_pos = {N, CA, C, O, CB, SG};
-                res.res_atom= {"N", "CA", "C", "O", "CB", "SG"};            
+                res.res_atom= {"N", "CA", "C", "O", "CB", "SG"};
             }
     }

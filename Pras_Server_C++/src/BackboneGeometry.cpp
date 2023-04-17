@@ -1,7 +1,17 @@
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 
 #include "LinearAlgebra.hpp"
@@ -25,13 +35,13 @@ VVF GetBackboneGeometry::pi_helix()
                 VVF (O_coord.begin(), O_coord.end()-5).swap(O_coord);
                 all_O.push_back(O_coord);
                 all_N.push_back(N_coord);
-                O_coord.clear();N_coord.clear();              
+                O_coord.clear();N_coord.clear();
               }
             else
             {
                 all_O.push_back(O_coord);
                 all_N.push_back(N_coord);
-                O_coord.clear();N_coord.clear(); 
+                O_coord.clear();N_coord.clear();
             }
           }
       }
@@ -44,12 +54,12 @@ VVF GetBackboneGeometry::pi_helix()
                   hb_dist.push_back(_distance(all_O[i][j],all_N[i][j]));
                 }
               for(auto i: {100., 100., 100., 100., 100.})hb_dist.push_back(i);
-              all_hb_dist.push_back(hb_dist);hb_dist.clear();          
+              all_hb_dist.push_back(hb_dist);hb_dist.clear();
            }
         else
            {
               for(int k =0; k< all_O[i].size(); k++)hb_dist.push_back(100.);
-              all_hb_dist.push_back(hb_dist);hb_dist.clear();  
+              all_hb_dist.push_back(hb_dist);hb_dist.clear();
            }
       }
     return all_hb_dist;
@@ -79,7 +89,7 @@ VVF GetBackboneGeometry::alpha_helix()
               {
                 all_O.push_back(O_coord);
                 all_N.push_back(N_coord);
-                O_coord.clear();N_coord.clear();  
+                O_coord.clear();N_coord.clear();
               }
           }
       }
@@ -92,12 +102,12 @@ VVF GetBackboneGeometry::alpha_helix()
                 hb_dist.push_back(_distance(all_O[i][j],all_N[i][j]));
               }
             for(auto i: {100., 100., 100., 100.})hb_dist.push_back(i);
-            all_hb_dist.push_back(hb_dist);hb_dist.clear();          
+            all_hb_dist.push_back(hb_dist);hb_dist.clear();
           }
         else
           {
             for(int k =0; k< all_O[i].size(); k++)hb_dist.push_back(100.);
-            all_hb_dist.push_back(hb_dist);hb_dist.clear(); 
+            all_hb_dist.push_back(hb_dist);hb_dist.clear();
           }
       }
     return all_hb_dist;
@@ -124,7 +134,7 @@ VVF GetBackboneGeometry::_310_helix()
             VVF (O_coord.begin(), O_coord.end()-3).swap(O_coord);
             all_O.push_back(O_coord);
             all_N.push_back(N_coord);
-            O_coord.clear();N_coord.clear(); 
+            O_coord.clear();N_coord.clear();
           }
       }
     for (int i= 0; i<all_O.size(); i++)
@@ -170,7 +180,7 @@ VVF GetBackboneGeometry::beta_turn()
           cn_dist.push_back(_distance(all_C[i][j],all_N[i][j]));
         }
        for(auto i: {100., 100., 100.})cn_dist.push_back(i);
-       all_cn_dist.push_back(cn_dist);cn_dist.clear();         
+       all_cn_dist.push_back(cn_dist);cn_dist.clear();
       }
     return all_cn_dist;
   }
@@ -337,7 +347,7 @@ VVS GetBackboneGeometry::dihedralType()
         {
           all_di_type.push_back(di_type);
           di_type.clear();
-        }    
+        }
   }
   return all_di_type;
 }

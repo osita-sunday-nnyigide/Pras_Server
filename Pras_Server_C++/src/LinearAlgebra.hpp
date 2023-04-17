@@ -1,7 +1,17 @@
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 
 #ifndef LA_H
@@ -35,6 +45,6 @@ V1 class5(V1 pos_CD, V1 pos_NE, V1 pos_CZ, float bond_len);
 V1 class6_Ser(V1 pos_OG, V1 pos_CB, V1 HB1);
 V1 class6_Thr(V1 pos_OG1, V1 pos_CB, V1 pos_CG2);
 V1 class6_Tyr(V1 pos_OH, V1 pos_CZ, V1 pos_CE2);
-V1 class6_Cys(V1 pos_SG, V1 pos_CB, V1 pos_CA); 
+V1 class6_Cys(V1 pos_SG, V1 pos_CB, V1 pos_CA);
 
 #endif

@@ -1,7 +1,17 @@
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 
 #include "MissingHydrogenAtoms.hpp"
@@ -24,7 +34,7 @@ void AddMissingHydrogenAtons::arginine_h(Residue &res, Residue &res_p, Residue &
                 else if (res.res_atom[i] == "NE")  pos_NE = res.res_pos[i];
                 else if (res.res_atom[i] == "CZ")  pos_CZ = res.res_pos[i];
                 else if (res.res_atom[i] == "NH1") pos_NH1= res.res_pos[i];
-                else if (res.res_atom[i] == "NH2") pos_NH2= res.res_pos[i];            
+                else if (res.res_atom[i] == "NH2") pos_NH2= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -49,7 +59,7 @@ void AddMissingHydrogenAtons::arginine_h(Residue &res, Residue &res_p, Residue &
         HG2       =  HG1_HG2[1];
         HD1       =  HD1_HD2[0];
         HD2       =  HD1_HD2[1];
-      
+
         V2 arg_h = {HA, HE, HH11, HH12, HH21, HH22, HB1, HB2, HG1, HG2, HD1, HD2, H};
         RC arg_a = {"HA","HE","1HH1","2HH1","1HH2","2HH2","HB1","HB2","HG1","HG2","HD1","HD2","H"};
         for (int i = 0; i<arg_h.size(); i++)
@@ -83,7 +93,7 @@ void AddMissingHydrogenAtons::isoleucine_h(Residue &res, Residue &res_p, Residue
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG1") pos_CG1= res.res_pos[i];
                 else if (res.res_atom[i] == "CG2") pos_CG2= res.res_pos[i];
-                else if (res.res_atom[i] == "CD1") pos_CD1 = res.res_pos[i];           
+                else if (res.res_atom[i] == "CD1") pos_CD1 = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -91,7 +101,7 @@ void AddMissingHydrogenAtons::isoleucine_h(Residue &res, Residue &res_p, Residue
                 if (res_p.res_atom[i] == "C")  pos_Cp   = res_p.res_pos[i];
             }
 
-        H     =  class5(pos_CA,pos_N,pos_Cp,1.01);   
+        H     =  class5(pos_CA,pos_N,pos_Cp,1.01);
         HA             =  class3(pos_CB,pos_N,pos_CA);
         HB             =  class3(pos_CA,pos_CG1,pos_CB);
         HG11_HG12      =  class2(pos_CB,pos_CD1, pos_CG1);
@@ -138,7 +148,7 @@ void AddMissingHydrogenAtons::leucine_h(Residue &res, Residue &res_p, Residue &n
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG= res.res_pos[i];
                 else if (res.res_atom[i] == "CD1") pos_CD1= res.res_pos[i];
-                else if (res.res_atom[i] == "CD2") pos_CD2 = res.res_pos[i];           
+                else if (res.res_atom[i] == "CD2") pos_CD2 = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -194,13 +204,13 @@ void AddMissingHydrogenAtons::tryptophan_h(Residue &res, Residue &res_p, Residue
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
                 else if (res.res_atom[i] == "CD1") pos_CD1= res.res_pos[i];
-                else if (res.res_atom[i] == "CD2") pos_CD2= res.res_pos[i];  
+                else if (res.res_atom[i] == "CD2") pos_CD2= res.res_pos[i];
                 else if(res.res_atom[i]  == "CE2") pos_CE2= res.res_pos[i];
                 else if (res.res_atom[i] == "CE3") pos_CE3= res.res_pos[i];
                 else if (res.res_atom[i] == "NE1") pos_NE1= res.res_pos[i];
                 else if (res.res_atom[i] == "CZ2") pos_CZ2= res.res_pos[i];
                 else if (res.res_atom[i] == "CZ3") pos_CZ3= res.res_pos[i];
-                else if (res.res_atom[i] == "CH2") pos_CH2= res.res_pos[i];           
+                else if (res.res_atom[i] == "CH2") pos_CH2= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -243,7 +253,7 @@ void AddMissingHydrogenAtons::phenylalanine_h(Residue &res, Residue &res_p, Resi
     {
 
         V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG, pos_CD1, pos_CD2,
-           pos_CE1, pos_CE2, pos_CZ,pos_Cp, HA,H, HB1, HB2, HD1, 
+           pos_CE1, pos_CE2, pos_CZ,pos_Cp, HA,H, HB1, HB2, HD1,
            HD2, HE1, HE2, HZ;
 
         V2 HB1_HB2;
@@ -256,10 +266,10 @@ void AddMissingHydrogenAtons::phenylalanine_h(Residue &res, Residue &res_p, Resi
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
                 else if (res.res_atom[i] == "CD1") pos_CD1= res.res_pos[i];
-                else if (res.res_atom[i] == "CD2") pos_CD2= res.res_pos[i];  
+                else if (res.res_atom[i] == "CD2") pos_CD2= res.res_pos[i];
                 else if(res.res_atom[i]  == "CE1") pos_CE1= res.res_pos[i];
                 else if (res.res_atom[i] == "CE2") pos_CE2= res.res_pos[i];
-                else if (res.res_atom[i] == "CZ")  pos_CZ = res.res_pos[i];          
+                else if (res.res_atom[i] == "CZ")  pos_CZ = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -299,7 +309,7 @@ void AddMissingHydrogenAtons::phenylalanine_h(Residue &res, Residue &res_p, Resi
 
 void AddMissingHydrogenAtons::asparagine_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG, pos_ND2, 
+        V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG, pos_ND2,
         pos_OD1, pos_Cp, HA, H, HB1, HB2, HD12, HD22;
 
         V2 HB1_HB2;
@@ -312,7 +322,7 @@ void AddMissingHydrogenAtons::asparagine_h(Residue &res, Residue &res_p, Residue
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG= res.res_pos[i];
                 else if (res.res_atom[i] == "ND2") pos_ND2= res.res_pos[i];
-                else if (res.res_atom[i] == "OD1") pos_OD1 = res.res_pos[i];           
+                else if (res.res_atom[i] == "OD1") pos_OD1 = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -432,7 +442,7 @@ void AddMissingHydrogenAtons::glycine_h(Residue &res, Residue &res_p, Residue &n
 
 void AddMissingHydrogenAtons::valine_h(Residue &res, Residue &res_p, Residue &ntermini)
 {
-    V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG1, pos_CG2,pos_Cp, 
+    V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG1, pos_CG2,pos_Cp,
        HA, H, HB,  HG11,  HG12,  HG13,  HG21,  HG22, HG23;
 
         for (int i = 0; i<res.res_atom.size(); i++)
@@ -442,7 +452,7 @@ void AddMissingHydrogenAtons::valine_h(Residue &res, Residue &res_p, Residue &nt
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG1") pos_CG1= res.res_pos[i];
-                else if (res.res_atom[i] == "CG2") pos_CG2= res.res_pos[i];           
+                else if (res.res_atom[i] == "CG2") pos_CG2= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -481,7 +491,7 @@ void AddMissingHydrogenAtons::valine_h(Residue &res, Residue &res_p, Residue &nt
 
 void AddMissingHydrogenAtons::lysine_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG, pos_CD,pos_CE, pos_NZ,pos_Cp, 
+        V1 pos_N,pos_CA,pos_C,pos_CB, pos_CG, pos_CD,pos_CE, pos_NZ,pos_Cp,
            HA, H, HB1, HB2, HG1,  HG2,  HD1, HD2, HE1,  HE2, HZ1, HZ2, HZ3;
 
         V2 HB1_HB2, HG1_HG2, HD1_HD2, HE1_HE2;
@@ -495,7 +505,7 @@ void AddMissingHydrogenAtons::lysine_h(Residue &res, Residue &res_p, Residue &nt
                     else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
                     else if (res.res_atom[i] == "CD")  pos_CD = res.res_pos[i];
                     else if (res.res_atom[i] == "CE")  pos_CE = res.res_pos[i];
-                    else if (res.res_atom[i] == "NZ")  pos_NZ = res.res_pos[i];             
+                    else if (res.res_atom[i] == "NZ")  pos_NZ = res.res_pos[i];
                 }
 
             for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -542,7 +552,7 @@ void AddMissingHydrogenAtons::lysine_h(Residue &res, Residue &res_p, Residue &nt
 
 void AddMissingHydrogenAtons::aspartate_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_OD1, 
+        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_OD1,
            pos_OD2,   pos_Cp,   HA,   H,  HB1,  HB2;
 
         V2 HB1_HB2;
@@ -553,7 +563,7 @@ void AddMissingHydrogenAtons::aspartate_h(Residue &res, Residue &res_p, Residue 
                 else if (res.res_atom[i] == "CA")  pos_CA = res.res_pos[i];
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
-                else if (res.res_atom[i] == "CG")  pos_CG= res.res_pos[i];          
+                else if (res.res_atom[i] == "CG")  pos_CG= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -588,7 +598,7 @@ void AddMissingHydrogenAtons::aspartate_h(Residue &res, Residue &res_p, Residue 
 
 void AddMissingHydrogenAtons::glutamine_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD, pos_NE2, 
+        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD, pos_NE2,
         pos_OE1, pos_Cp, HA, H, HB1,HB2,HG1,HG2, HE21, HE22;
 
         V2 HB1_HB2, HG1_HG2;
@@ -601,8 +611,8 @@ void AddMissingHydrogenAtons::glutamine_h(Residue &res, Residue &res_p, Residue 
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
                 else if(res.res_atom[i] == "CD")   pos_CD = res.res_pos[i];
-                else if (res.res_atom[i] == "NE2") pos_NE2= res.res_pos[i]; 
-                else if (res.res_atom[i] == "OE1") pos_OE1= res.res_pos[i];         
+                else if (res.res_atom[i] == "NE2") pos_NE2= res.res_pos[i];
+                else if (res.res_atom[i] == "OE1") pos_OE1= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -641,7 +651,7 @@ void AddMissingHydrogenAtons::glutamine_h(Residue &res, Residue &res_p, Residue 
 
 void AddMissingHydrogenAtons::glutamate_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD, 
+        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD,
            pos_Cp,  HA,  H,  HB1,  HB2,  HG1,  HG2;
 
         V2 HB1_HB2, HG1_HG2;
@@ -653,7 +663,7 @@ void AddMissingHydrogenAtons::glutamate_h(Residue &res, Residue &res_p, Residue 
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
-                else if(res.res_atom[i] == "CD")   pos_CD = res.res_pos[i];         
+                else if(res.res_atom[i] == "CD")   pos_CD = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -691,7 +701,7 @@ void AddMissingHydrogenAtons::glutamate_h(Residue &res, Residue &res_p, Residue 
 
 void AddMissingHydrogenAtons::histidine_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD2,pos_ND1, 
+        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG,pos_CD2,pos_ND1,
            pos_CE1,pos_NE2,pos_Cp,HA,H,HB1,HB2,HD2,HE1, HE2;
 
         V2 HB1_HB2;
@@ -703,11 +713,11 @@ void AddMissingHydrogenAtons::histidine_h(Residue &res, Residue &res_p, Residue 
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i] == "CB")   pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
-                else if(res.res_atom[i] == "CD2")  pos_CD2= res.res_pos[i];  
+                else if(res.res_atom[i] == "CD2")  pos_CD2= res.res_pos[i];
                 else if(res.res_atom[i] == "ND1")  pos_ND1= res.res_pos[i];
                 else if (res.res_atom[i] == "CD2") pos_CD2= res.res_pos[i];
-                else if(res.res_atom[i] == "CE1")  pos_CE1= res.res_pos[i]; 
-                else if(res.res_atom[i] == "NE2")  pos_NE2= res.res_pos[i];      
+                else if(res.res_atom[i] == "CE1")  pos_CE1= res.res_pos[i];
+                else if(res.res_atom[i] == "NE2")  pos_NE2= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -741,11 +751,11 @@ void AddMissingHydrogenAtons::histidine_h(Residue &res, Residue &res_p, Residue 
               res.res_pos.push_back(H2); res.res_atom.push_back("H2");
               res.res_pos.push_back(H3); res.res_atom.push_back("H3");
             }
-     } 
+     }
 
 void AddMissingHydrogenAtons::proline_h(Residue &res, Residue &res_p, Residue &ntermini)
-    {   
-        V1 pos_N,pos_CA, pos_C, pos_CB, pos_CG, pos_CD, 
+    {
+        V1 pos_N,pos_CA, pos_C, pos_CB, pos_CG, pos_CD,
            HA, HB1, HB2, HD1, HD2, HG1, HG2;
 
         V2 HB1_HB2, HG1_HG2, HD1_HD2;
@@ -757,7 +767,7 @@ void AddMissingHydrogenAtons::proline_h(Residue &res, Residue &res_p, Residue &n
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
-                else if(res.res_atom[i]  == "CD")  pos_CD = res.res_pos[i];        
+                else if(res.res_atom[i]  == "CD")  pos_CD = res.res_pos[i];
             }
 
             HA             =  class3(pos_CB,pos_N,pos_CA);
@@ -791,7 +801,7 @@ void AddMissingHydrogenAtons::proline_h(Residue &res, Residue &res_p, Residue &n
 
 void AddMissingHydrogenAtons::metheonine_h(Residue &res, Residue &res_p, Residue &ntermini)
     {
-        V1 pos_N, pos_CA, pos_C, pos_CB, pos_CG, pos_SD, pos_CE, 
+        V1 pos_N, pos_CA, pos_C, pos_CB, pos_CG, pos_SD, pos_CE,
            pos_Cp, HA, H, HB1,  HB2,  HG1,  HG2,  HE1, HE2, HE3;
 
         V2 HB1_HB2, HG1_HG2;
@@ -803,8 +813,8 @@ void AddMissingHydrogenAtons::metheonine_h(Residue &res, Residue &res_p, Residue
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
-                else if(res.res_atom[i]  == "SD")  pos_SD = res.res_pos[i]; 
-                else if(res.res_atom[i]  == "CE")  pos_CE = res.res_pos[i];        
+                else if(res.res_atom[i]  == "SD")  pos_SD = res.res_pos[i];
+                else if(res.res_atom[i]  == "CE")  pos_CE = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -845,7 +855,7 @@ void AddMissingHydrogenAtons::metheonine_h(Residue &res, Residue &res_p, Residue
 
 void AddMissingHydrogenAtons::threonine_h(Residue &res, Residue &res_p, Residue &ntermini, vector<Residue> &chains)
     {
-        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG2,pos_OG1, 
+        V1 pos_N,pos_CA,pos_C,pos_CB,pos_CG2,pos_OG1,
            pos_Cp, HA, HB, H, HG1, HG12, HG22, HG23;
 
         for (int i = 0; i<res.res_atom.size(); i++)
@@ -855,7 +865,7 @@ void AddMissingHydrogenAtons::threonine_h(Residue &res, Residue &res_p, Residue 
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
                 else if (res.res_atom[i] == "CG2") pos_CG2= res.res_pos[i];
-                else if(res.res_atom[i]  == "OG1") pos_OG1= res.res_pos[i];        
+                else if(res.res_atom[i]  == "OG1") pos_OG1= res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -894,7 +904,7 @@ void AddMissingHydrogenAtons::threonine_h(Residue &res, Residue &res_p, Residue 
 
 void AddMissingHydrogenAtons::serine_h(Residue &res, Residue &res_p, Residue &ntermini, vector<Residue> &chains)
 {
-    V1 pos_N,pos_CA,pos_C,pos_CB,pos_OG, 
+    V1 pos_N,pos_CA,pos_C,pos_CB,pos_OG,
        pos_Cp, HA, HB1, HB2, HG, H;
 
     V2 HB1_HB2;
@@ -905,7 +915,7 @@ void AddMissingHydrogenAtons::serine_h(Residue &res, Residue &res_p, Residue &nt
             else if (res.res_atom[i] == "CA")  pos_CA = res.res_pos[i];
             else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
             else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
-            else if(res.res_atom[i]  == "OG")  pos_OG = res.res_pos[i];        
+            else if(res.res_atom[i]  == "OG")  pos_OG = res.res_pos[i];
         }
 
     for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -955,12 +965,12 @@ void AddMissingHydrogenAtons::tyrosine_h(Residue &res, Residue &res_p, Residue &
             else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
             else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
             else if (res.res_atom[i] == "CG")  pos_CG = res.res_pos[i];
-            else if(res.res_atom[i]  == "CD1") pos_CD1= res.res_pos[i];  
-            else if(res.res_atom[i]  == "CD2") pos_CD2= res.res_pos[i]; 
-            else if(res.res_atom[i]  == "CE1") pos_CE1= res.res_pos[i];  
-            else if(res.res_atom[i]  == "CE2") pos_CE2= res.res_pos[i];  
-            else if(res.res_atom[i]  == "CZ")  pos_CZ = res.res_pos[i];  
-            else if(res.res_atom[i]  == "OH")  pos_OH = res.res_pos[i];      
+            else if(res.res_atom[i]  == "CD1") pos_CD1= res.res_pos[i];
+            else if(res.res_atom[i]  == "CD2") pos_CD2= res.res_pos[i];
+            else if(res.res_atom[i]  == "CE1") pos_CE1= res.res_pos[i];
+            else if(res.res_atom[i]  == "CE2") pos_CE2= res.res_pos[i];
+            else if(res.res_atom[i]  == "CZ")  pos_CZ = res.res_pos[i];
+            else if(res.res_atom[i]  == "OH")  pos_OH = res.res_pos[i];
         }
 
     for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -1013,7 +1023,7 @@ void AddMissingHydrogenAtons::cystine_h(Residue &res, Residue &res_p, vector<Res
                 else if (res.res_atom[i] == "CA")  pos_CA = res.res_pos[i];
                 else if (res.res_atom[i] == "C")   pos_C  = res.res_pos[i];
                 else if(res.res_atom[i]  == "CB")  pos_CB = res.res_pos[i];
-                else if (res.res_atom[i] == "SG")  pos_SG = res.res_pos[i];       
+                else if (res.res_atom[i] == "SG")  pos_SG = res.res_pos[i];
             }
 
         for (int i = 0; i<res_p.res_atom.size(); i++)
@@ -1030,18 +1040,18 @@ void AddMissingHydrogenAtons::cystine_h(Residue &res, Residue &res_p, vector<Res
         string ds = "";
         for (int j = 0; j<chains.size(); j++)
             {
-             if (chains[j].res_type == "CYS" && chains[j].c_id == res.c_id) 
+             if (chains[j].res_type == "CYS" && chains[j].c_id == res.c_id)
              {
                 if (chains[j].res_num != res.res_num )
                  {
 
                     float dist = _distance(pos_SG, chains[j].res_pos[5]);
                      if ( dist <= 3.)
-                        { 
+                        {
                             ds = "disulfide";
-                            break;  
-                        } 
-                 }                
+                            break;
+                        }
+                 }
              }
             }
         if (ds != "disulfide")
@@ -1055,7 +1065,7 @@ void AddMissingHydrogenAtons::cystine_h(Residue &res, Residue &res_p, vector<Res
                     {
                         res.res_pos.push_back(cys_h[i]);
                         res.res_atom.push_back(cys_a[i]);
-                    }              
+                    }
             }
         else
             {
@@ -1083,9 +1093,9 @@ void AddMissingHydrogenAtons::his_note(string resNo, string chainID)
     {
         resNo.erase(remove_if(resNo.begin(),resNo.end(),::isspace),resNo.end());
         ofstream file("log.txt", ios_base::app);
-        file<<"HIS No."<< resNo <<" in chain" 
+        file<<"HIS No."<< resNo <<" in chain"
              <<chainID<< " is protonated (+1 charge)";
-        file<<"(ref @ www.protein-science.com).\n\n";   
+        file<<"(ref @ www.protein-science.com).\n\n";
     }
 
 void AddMissingHydrogenAtons::get_hd1(vector<Residue> &HIS, vector<Residue> &chains)
@@ -1096,9 +1106,9 @@ void AddMissingHydrogenAtons::get_hd1(vector<Residue> &HIS, vector<Residue> &cha
         {
             for (int j = 0; j <HIS[i].res_atom.size(); j++)
             {
-                if     (HIS[i].res_atom[j] == "CG")   pos_CG  = HIS[i].res_pos[j]; 
+                if     (HIS[i].res_atom[j] == "CG")   pos_CG  = HIS[i].res_pos[j];
                 else if(HIS[i].res_atom[j] == "ND1")  pos_ND1 = HIS[i].res_pos[j];
-                else if(HIS[i].res_atom[j] == "CE1")  pos_CE1 = HIS[i].res_pos[j];               
+                else if(HIS[i].res_atom[j] == "CE1")  pos_CE1 = HIS[i].res_pos[j];
             }
 
             V1 HD1 =  class5(pos_CE1, pos_ND1, pos_CG, 1.01);
@@ -1108,7 +1118,7 @@ void AddMissingHydrogenAtons::get_hd1(vector<Residue> &HIS, vector<Residue> &cha
                 {
                     chains[k].res_atom.push_back("HD1");
                     chains[k].res_pos.push_back(HD1);
-                    his_note(HIS[i].res_num, HIS[i].c_id);                    
+                    his_note(HIS[i].res_num, HIS[i].c_id);
                 }
             }
         }
@@ -1132,7 +1142,7 @@ void AddMissingHydrogenAtons::prot_his(vector<Residue> &chains)
             else if (chains[i].res_type == "HIS" && chains[i].c_id != HIS.back().c_id)
             {
                 get_hd1(HIS, chains);
-                HIS.push_back(chains[i]); 
+                HIS.push_back(chains[i]);
             }
         }
 

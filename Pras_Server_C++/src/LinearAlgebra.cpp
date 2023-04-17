@@ -1,7 +1,17 @@
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 
 #include "LinearAlgebra.hpp"
@@ -9,19 +19,19 @@ See the included LICENSE file
 V1  rotMatrix(V1 vec, V1 axis, float theta)
       {
         V2 matrix = {{},{},{}};
-        matrix[0] = {0.0, 0.0, 0.0}; 
-        matrix[1] = {0.0, 0.0, 0.0}; 
+        matrix[0] = {0.0, 0.0, 0.0};
+        matrix[1] = {0.0, 0.0, 0.0};
         matrix[2] = {0.0, 0.0, 0.0};
 
-        float axis_length = sqrt((axis[0]*axis[0] + 
+        float axis_length = sqrt((axis[0]*axis[0] +
               axis[1]*axis[1] + axis[2]*axis[2]));
 
-        float xNorm = axis[0]/axis_length; 
-        float yNorm = axis[1]/axis_length; 
+        float xNorm = axis[0]/axis_length;
+        float yNorm = axis[1]/axis_length;
         float zNorm = axis[2]/axis_length;
 
-        float sin_theta         = sin(theta);  
-        float cos_theta         = cos(theta); 
+        float sin_theta         = sin(theta);
+        float cos_theta         = cos(theta);
         float one_costheta = 1.0 - cos_theta;
 
         matrix[0][0] = cos_theta       + xNorm*xNorm*one_costheta;
@@ -34,7 +44,7 @@ V1  rotMatrix(V1 vec, V1 axis, float theta)
         matrix[2][1] = yNorm*zNorm*one_costheta + xNorm*sin_theta;
         matrix[2][2] = cos_theta        + zNorm*zNorm*one_costheta;
 
-        V1 arbrot    = { vec[0]*matrix[0][0]+ vec[1]*matrix[1][0]+ vec[2]*matrix[2][0], 
+        V1 arbrot    = { vec[0]*matrix[0][0]+ vec[1]*matrix[1][0]+ vec[2]*matrix[2][0],
                          vec[0]*matrix[0][1]+ vec[1]*matrix[1][1]+ vec[2]*matrix[2][1],
                          vec[0]*matrix[0][2]+ vec[1]*matrix[1][2]+ vec[2]*matrix[2][2]
                        };
@@ -142,7 +152,7 @@ float calcTorsionAngle(V1 &c1, V1 &c2, V1 &c3, V1 &c4)
         float radian  = acos(cosine);
 
         cross_product(pv24, bv32, vx);
-        if (dot_product(pv13, vx) < 0) 
+        if (dot_product(pv13, vx) < 0)
           {
               radian = -radian;
           }
@@ -186,15 +196,15 @@ V1 class1(V1 &a, V1 &b, V1 &c, float bond_len, float di_angle, float theta)
 
         cross_product(z, y1, f2);
         pos = _add(
-                    _add(c,const_multiply(cos(rotate*3.142/180), y1)), 
-                    _add(const_multiply(sin(rotate*3.142/180), f2), 
-                        (const_multiply(1.0-cos(rotate*3.142/180), 
+                    _add(c,const_multiply(cos(rotate*3.142/180), y1)),
+                    _add(const_multiply(sin(rotate*3.142/180), f2),
+                        (const_multiply(1.0-cos(rotate*3.142/180),
                         const_multiply(dot_product(z, y1), z)))));
 
         _subtract(pos, c, c4);
         pos_BL = _add(const_multiply(bond_len/sqrt(c4[0]*c4[0]+c4[1]*c4[1]+c4[2]*c4[2]), c4), c);
 
-        return pos_BL;      
+        return pos_BL;
       }
 
 V1 calcCoordinate(V1 &a, V1 &b, V1 &c, float bond_len, float theta, float di_angle)
@@ -233,9 +243,9 @@ V1 calcCoordinate(V1 &a, V1 &b, V1 &c, float bond_len, float theta, float di_ang
 
         cross_product(z, y1, f2);
         pos = _add(
-                    _add(c,const_multiply(cos(rotate*3.142/180), y1)), 
-                    _add(const_multiply(sin(rotate*3.142/180), f2), 
-                        (const_multiply(1.0-cos(rotate*3.142/180), 
+                    _add(c,const_multiply(cos(rotate*3.142/180), y1)),
+                    _add(const_multiply(sin(rotate*3.142/180), f2),
+                        (const_multiply(1.0-cos(rotate*3.142/180),
                         const_multiply(dot_product(z, y1), z)))));
 
         _subtract(pos, c, c4);
@@ -263,9 +273,9 @@ V1 recalcCoordinate(V1 b, V1 c, V1 d, float bond_len)
 
         cross_product(z, y1, f2);
         pos = _add(
-                    _add(c,const_multiply(cos(rotate*3.142/180), y1)), 
-                    _add(const_multiply(sin(rotate*3.142/180), f2), 
-                        (const_multiply(1.0-cos(rotate*3.142/180), 
+                    _add(c,const_multiply(cos(rotate*3.142/180), y1)),
+                    _add(const_multiply(sin(rotate*3.142/180), f2),
+                        (const_multiply(1.0-cos(rotate*3.142/180),
                         const_multiply(dot_product(z, y1), z)))));
 
         _subtract(pos, c, c4);
@@ -282,7 +292,7 @@ V2 class2( V1 pos_CA, V1 pos_CG, V1 pos_CB, float bond_len)
         _subtract(pos_CB, m, s);
         n = _add(m, const_multiply(2.0, s));
         _subtract(pos_CB, m, norm);
-        _subtract(pos_CA, m, norm2); 
+        _subtract(pos_CA, m, norm2);
         cross_product(norm2, norm, ans);
 
         cdiv = const_divide(sqrt(norm[0]*norm[0]+norm[1]*norm[1]+norm[2]*norm[2]), ans);
@@ -310,7 +320,7 @@ V2 class2( V1 pos_CA, V1 pos_CG, V1 pos_CB, float bond_len)
       }
 
 V1 class3(V1 pos_CB, V1 pos_N, V1 pos_CA)
-      { 
+      {
         V1 m, n, s, ha,c4, ans, cdiv, norm, norm2, point_ha;
 
         m =  const_multiply(0.5,_add(pos_CB, pos_N));
@@ -362,8 +372,8 @@ V1 class5(V1 pos_CD, V1 pos_NE, V1 pos_CZ, float bond_len)
 
         float mag_y1  = sqrt((y1[0]*y1[0])+(y1[1]*y1[1])+(y1[2]*y1[2]));
         float mag_u1  = sqrt((u1[0]*u1[0])+(u1[1]*u1[1])+(u1[2]*u1[2]));
-        float mag_u2  = sqrt((u2[0]*u2[0])+(u2[1]*u2[1])+(u2[2]*u2[2])); 
-            
+        float mag_u2  = sqrt((u2[0]*u2[0])+(u2[1]*u2[1])+(u2[2]*u2[2]));
+
         float theta_bcd  = (acos(dot_product(u1,y1)/(mag_u1*mag_y1)))*180./3.142;
         float theta_bcd2 = acos(dot_product(u2,y1)/(mag_u2*mag_y1))*180/3.142;
 
@@ -375,9 +385,9 @@ V1 class5(V1 pos_CD, V1 pos_NE, V1 pos_CZ, float bond_len)
 
         cross_product(z, y1, f2);
         pos = _add(
-                      _add(pos_NE,const_multiply(cos(rotate*3.142/180.), y1)), 
-                      _add(const_multiply(sin(rotate*3.142/180.), f2), 
-                          (const_multiply(1.0-cos(rotate*3.142/180.), 
+                      _add(pos_NE,const_multiply(cos(rotate*3.142/180.), y1)),
+                      _add(const_multiply(sin(rotate*3.142/180.), f2),
+                          (const_multiply(1.0-cos(rotate*3.142/180.),
                           const_multiply(dot_product(z, y1), z)))));
 
           _subtract(pos, pos_NE, c4);
@@ -386,7 +396,7 @@ V1 class5(V1 pos_CD, V1 pos_NE, V1 pos_CZ, float bond_len)
         return pos_BL;
       }
 
-V1 class6_Ser(V1 pos_OG, V1 pos_CB, V1 HB1) 
+V1 class6_Ser(V1 pos_OG, V1 pos_CB, V1 HB1)
   {
       V1 og_cb_vector  = {pos_CB[0]-pos_OG[0], pos_CB[1]-pos_OG[1], pos_CB[2]-pos_OG[2]};
       V1 cb_hb1_vector = {HB1[0]-pos_CB[0], HB1[1]-pos_CB[1], HB1[2]-pos_CB[2]};
@@ -434,7 +444,7 @@ V1 class6_Ser(V1 pos_OG, V1 pos_CB, V1 HB1)
 
   }
 
-  V1 class6_Tyr(V1 pos_OH, V1 pos_CZ, V1 pos_CE2) 
+  V1 class6_Tyr(V1 pos_OH, V1 pos_CZ, V1 pos_CE2)
   {
       V1 oh_cz_vector  = {pos_CZ[0]-pos_OH[0], pos_CZ[1]-pos_OH[1], pos_CZ[2]-pos_OH[2]};
       V1 cz_ce2_vector = {pos_CE2[0]-pos_CZ[0], pos_CE2[1]-pos_CZ[1], pos_CE2[2]-pos_CZ[2]};
@@ -458,7 +468,7 @@ V1 class6_Ser(V1 pos_OG, V1 pos_CB, V1 HB1)
 
   }
 
-    V1 class6_Cys(V1 pos_SG, V1 pos_CB, V1 pos_CA) 
+    V1 class6_Cys(V1 pos_SG, V1 pos_CB, V1 pos_CA)
   {
       V1 sg_cbvector  = {pos_CB[0]-pos_SG[0], pos_CB[1]-pos_SG[1], pos_CB[2]-pos_SG[2]};
       V1 cb_ca_vector = {pos_CA[0]-pos_CB[0], pos_CA[1]-pos_CB[1], pos_CA[2]-pos_CB[2]};

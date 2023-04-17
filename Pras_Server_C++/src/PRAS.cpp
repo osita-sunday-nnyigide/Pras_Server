@@ -1,9 +1,19 @@
 
 
 /*******************************************************************************************************************************
-This file is a part of the Protein Repair and Analysis Server written by Osita S. Nnyigide
+Copyright (c) 2022 Osita Sunday Nnyigide (osita@protein-science.com)
 
-See the included LICENSE file
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ********************************************************************************************************************************/
 #include "RepairPDB.hpp"
 #include "SecondaryStructure.hpp"
@@ -26,7 +36,7 @@ int main(int argc, char** argv)
 	clock_t start_time,end_time;
     float duration;
     start_time = clock();
-	string PDB, faspr, rotamer, mutation, ligand, addh, prot, ss; int i;
+	string PDB, faspr, rotamer, mutation, ligand, addh, prot, ss, output, log; int i;
 	OutputStructure PRAS;AnalyzeProtein SSA;
 	for(i=1;i<argc-1;i++)
 		{
@@ -72,23 +82,34 @@ int main(int argc, char** argv)
 			       i++;
 			       ss=argv[i];
 			     }
+		     else if(argv[i][1]=='o')
+			     {
+			       i++;
+			       output=argv[i];
+			     }
+		     else if(argv[i][1]=='k')
+			     {
+			       i++;
+			       log=argv[i];
+			     }
 		   }
 		}
-	remove("log.txt");
+	if (log.empty()) remove("log.txt");
 	char ftype = PDB.back();
-	if ((PDB,faspr,rotamer,mutation,ligand,addh,prot,ss).empty()) goto ERR; 	
+	if ((PDB,faspr,rotamer,mutation,ligand,addh,prot,ss).empty()) goto ERR;
 	if (ftype=='b'||ftype=='t')PRAS.getChains(PDB,"nofaspr",rotamer,mutation,ligand);
 	else if (ftype=='f')         PRAS.getMMCIFChains(PDB, rotamer, mutation, ligand);
 	PRAS.getChains("noPDB",faspr,rotamer,mutation,ligand);
-	PRAS.FixHeavyAtoms();
+	PRAS.FixHeavyAtoms(PDB);
 	if (addh=="yes")PRAS.addH(prot);
-	PRAS.writeOutput(ftype);
-	if (ss=="yes") SSA.SecondaryStructure(ftype);
+	if (output.empty()) output = "no";
+	PRAS.writeOutput(ftype,output);
+	if (ss=="yes") SSA.SecondaryStructure(ftype,output);
     end_time = clock();
     duration = (float)(end_time-start_time)/CLOCKS_PER_SEC;
-    cout<<"This program took "<<duration<<" seconds\n"<<endl;
+    cout<<"\nThis program took "<<duration<<" seconds\n"<<endl;
     return 0;
-	
+
 	ERR:  cout<<"Error! PRAS requires 8 arguments"<<endl;
 		  cout<<"Usage: ./PRAS -i in.pdb -f faspr.pdb -r yes -m yes -l no -h no -p no -s no"<<endl;
 		  cout<<"-i (input)     enter input PDB to repair and/or analyze"<<endl;
