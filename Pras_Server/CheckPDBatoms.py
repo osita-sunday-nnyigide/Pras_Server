@@ -18,7 +18,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.8"
+__version__    = "1.0.11"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -214,14 +214,14 @@ def invalid_pdb_file():
     """
     with open('invalid_pdb_file.txt', 'w') as f:
         f.write('Error occured while reading the PDB file'+'\n')
-        f.write('For a .pdb format, ensure that each chain ends' 
+        f.write('For a .pdb format, ensure that each chain ends'
                ' with TER and the last chain TER+END.'+'\n')
-        f.write('Also, visit www.protein-science.com and' 
+        f.write('Also, visit www.protein-science.com and'
                ' click "How-tos" for more information')
 
         sys.exit(1)
 
-def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no):
+def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no, ofname=False):
 
     """
     This function obtains all chains in the PDB file as read by ReadMAster.py or ReadmmCIF.py
@@ -254,6 +254,8 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
                  1 = the first chain, 2 = the second chain, etc. If user supplies a string number PRAS
                  will convert it to integer but if alphabet error will be generated.
 
+    ofname     : the output file name, default name is out.pdb or out.cif
+
     Returns
     -------
     A list:    a list that contains all chains with complete heavy atom of each residue
@@ -264,10 +266,11 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
     Remove previous log file in
     the case of another run
     """
-    try:
-        os.remove('log.txt')
-    except:
-        pass
+    if not ofname:
+        try:
+            os.remove('log.txt')
+        except:
+            pass
 
     """
     Now initialize the list to grab all
@@ -286,12 +289,13 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
 
         log.write('#'*183+'\n')
 
-        log.write('PRAS 1.0.8. This is a PRAS-generated log file.'
+        log.write('PRAS 1.0.11. This is a PRAS-generated log file.'
                 ' For your information, all missing or fixed atoms'
                 ' and other relevant information concerning the repair'
                 ' are appended below '+'\n')
 
         log.write('#'*183+'\n\n')
+        log.write('This is the log for {}'.format(pdb_pras)+'\n\n')
 
     """
     Read user's input file obtained from faspr but if

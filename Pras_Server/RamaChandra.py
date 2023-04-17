@@ -18,7 +18,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.8"
+__version__    = "1.0.11"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 from .ReadStructure import nextRes
 from pkg_resources import resource_stream
 
-def ramachandranTypes(filename, cmap = ""):
+def ramachandranTypes(filename=False,cmap = ""):
 	"""
 	This program plots 4 types of Ramanchandran
 	(general, glycine,proline,pre-proline) in TIF format
@@ -60,7 +60,8 @@ def ramachandranTypes(filename, cmap = ""):
 	-------
 	None:  plots 4 types of Ramanchandran in TIF format
 	"""
-
+	if not filename:
+		filename="out.pdb" 
 	_format = filename[-4:]
 
 	if _format == '.cif':
@@ -177,7 +178,7 @@ def ramachandranTypes(filename, cmap = ""):
 		ax[0,1].scatter(glycine_phi, glycine_psi, marker='.', s=3, c="k")
 		ax[1,1].scatter(preproline_phi, preproline_psi, marker='.', s=3, c="k")
 
-		plt.savefig('ramachandra'+'_'+'chain'+str(n+1)+'.tif')
+		plt.savefig('ramachandra'+'_'+'chain'+str(n+1)+'_'+filename[:-4]+'.tif')
 		plt.close(fig)
 
 		if _format == '.pdb':
