@@ -44,7 +44,8 @@ from Pras_Server.PDBID import  _82_pdbs, _494_pdbs
 
 startTime = time.time()
 
-fixing = InitRunType( rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="", addh=False, ss=False, raman=False, ofname=False, pdbid=_82_pdbs)
+fixing = InitRunType( rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="", 
+		      addh=False, ss=False, raman=False, ofname=False, pdbid=_82_pdbs)
 
 # fixed PDB is saved with name=PDB ID+_out.pdb
 # addh, use default or set to True to add hydrogen
@@ -90,7 +91,8 @@ from Pras_Server.RunType import InitRunType
 
 startTime = time.time()
 
-fixing = InitRunType(rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="", addh = False, ss=False, raman=False, ofname=False,pdbid=False)
+fixing = InitRunType(rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="", 
+		     addh=False, ss=False, raman=False, ofname=False,pdbid=False)
 
 fixing.fname = '1aho.pdb'
 
@@ -116,7 +118,8 @@ if len(sys.argv) == 8:
 	keep_ligand=sys.argv[5]
 	chain_no=sys.argv[6] 
 	ofname=sys.argv[7]
-	fixing=InitRunType(rotamer, mutation, pdb_faspr, keep_ligand, chain_no, addh=False, ss=False, raman=False, ofname=False, pdbid=False)
+	fixing=InitRunType(rotamer, mutation, pdb_faspr, keep_ligand, chain_no, 
+			   addh=False, ss=False, raman=False, ofname=False, pdbid=False)
 	fixing.fname=sys.argv[1]
 	fixing.ProcessWithDefault()
 	print ('The program took {0} second !'.format(time.time() - startTime))
