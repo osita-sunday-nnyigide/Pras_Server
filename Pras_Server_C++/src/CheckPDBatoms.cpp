@@ -46,7 +46,7 @@ void CheckMissingAtoms::cite_pras(string fname)
 		        " Atoms and Hydrogen Atoms, and Assign Secondary Structures by"
 		        " Amide Interactions. J. Chem. Inf. Model., 2022, 62, 4232–4246.\n";
 		file<<string(183,'*')<<"\n";
-		file<<"PRAS 1.0.10. This is a PRAS-generated log file."
+		file<<"PRAS 1.0.11. This is a PRAS-generated log file."
 		        " For your information, all missing or fixed atoms"
 		        " and other relevant information concerning the repair"
 		        " are appended below\n";
