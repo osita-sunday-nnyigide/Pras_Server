@@ -1,12 +1,12 @@
-Protein Repair and Analysis (PRAS) Server is a tool to repair PDB or mmCIF structures, add missing heavy atoms and hydrogen atoms and assign secondary structures by amide-amide interactions of the backbone.
+Protein Repair and Analysis (PRAS) Server is a tool to repair PDB or mmCIF structures, add missing heavy 
 
-On November 20, 2022, a C++ version of the server that is independent of the python counterpart was released. The C++ version is named Pras_Server_C++ and is part of this repository. Both versions produce the same result but the former is 9 to 12 times faster than the latter. To use the C++ version, download this ZIP and extract the Pras_Server_C++ folder and follow the instruction in the INSTALL file included with the distribution.
+atoms and hydrogen atoms and assign secondary structures by amide-amide interactions of the backbone
 
-You can also use the server online at https://www.protein-science.com/ 
+You can use the server online at https://www.protein-science.com/ or on your local machine following the 
 
-To use the python distribution on your local machine, follow the instructions given below
+instructions given below
 
-The PRAS program consists of:
+The program consists of:
 ```python
 Tools to automatically download PDB or mmCIF structures
 
@@ -23,7 +23,7 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
-`pip install Pras-Server==1.0.10`
+`pip install Pras-Server==1.0.11`
 
 ## PRAS usage
 
@@ -31,19 +31,57 @@ A comprehensive test with 82 or 494 PDB or mmCIF structures may be performed to 
 
 Since PRAS can download these structures automatically, 2 lists are provided which contain all the PDB IDs.
 
-To do this test, make a folder in any directory of your choosing where these structures would be downloaded or 
+To do this test, make a folder in any directory of your choosing where these structures would be downloaded or
 
-stored. Whilst in the folder, create a python document (e.g. testpras.py). Enter the following code and execute:
+stored. Whilst in the folder, create a python document (e.g. pras_test.py). Enter the following code and execute:
 
 ```python
 #computational time depends on
 #user's internet download speed
-from Pras_Server import test
+import time
+from Pras_Server.RunType import InitRunType
+from Pras_Server.PDBID import  _82_pdbs, _494_pdbs
+
+startTime = time.time()
+
+fixing = InitRunType( rotamer="", 
+					mutation="", 
+					pdb_faspr="", 
+					keep_ligand="", 
+					chain_no="",
+					addh = False,
+					ss=False,
+					raman=False,
+					ofname=False,
+					pdbid=_82_pdbs
+					)
+
+# fixed PDB is saved with name=PDB ID+_out.pdb
+# addh, use default or set to True to add hydrogen
+# pdbid, must be a list of PDB IDs or set to False
+# ss=secondary structure, set to True if you need it
+# raman=ramachandran plot, set to True if you need it
+# rotamer, use default or "yes" to use low occupancy conformers
+# mutation, use default or "yes" to use low occupancy conformers
+# keep_ligand, use default or "yes" to keep non-water ligands
+# chain_no, use default or string number (e.g., "1") to process a specific chain
+# ofname, output file name, use default. To use your own name read documentaion below
+# Execute print(InitRunType.ProcessOther().__doc__) or see RunType.py doc instructions
+# pdb_faspr, use default or enter a pdb output from faspr, reason is stated in pras paper
+
+fixing.ProcessWithoutDefaultUsingPDBID()
+#You can print(InitRunType.ProcessWithoutDefaultUsingPDBID.__doc__) 
+#to learn more about the member function
+print ('The program took {0} second !'.format(time.time() - startTime))
 ```
 
-The above will download and analyze 82 or 494 protein structures. One can modify test.py to process either of the lists or comment the SS assignment and Ramachandran plots to save memory (if you encounter failed to allocate bitmap error)
+The above will download and analyze 82 or 494 protein structures. One can modify the code to process either of the lists.
 
-For users that do not want to do the above comprehensive test, instructions are given below to process a 
+If you set ss=True and rama=True, you may encounter failed to allocate bitmap error (depending on your computer's memory).
+
+Note that the above test will work in both windows and linux systems. For linux you just need to do python3 pras_test.py
+
+For users that do not want to do the above comprehensive test, instructions are given below to process a
 
 single protein structure in a windows or linux environment.
 
@@ -57,35 +95,28 @@ PRAS will replace all missing atoms of toxin II, assign secondary structure and 
 
 
 ```python
-#computational time depends on what you do
 import time
+from Pras_Server.RunType import InitRunType
+
 startTime = time.time()
 
-#this function replaces missing heavy atoms and adds H-atoms. 
-#note that PRAS will always replace all H-atoms.
-from Pras_Server.PRAS import repairPDB 
+fixing = InitRunType(rotamer="", 
+					mutation="", 
+					pdb_faspr="", 
+					keep_ligand="", 
+					chain_no="",
+					addh = False,
+					ss=False,
+					raman=False,
+					ofname=False,
+					pdbid=False
+					)
 
-#this function replaces only missing heavy atoms.
-#always use this function if you only need to replace heavy atoms
-from Pras_Server.FixHeavyAtoms import fixheavyAtoms
- 
-#this function draws the 4 ramachandran types
-from Pras_Server.RamaChandra import ramachandranTypes 
+fixing.fname = '1aho.pdb'
 
-#this function assigns the secondary structure elements
-from Pras_Server.SecondaryStructure import assignStructure 
-
-#print(fixheavyAtoms.__doc__) to understand the arguments
-fixheavyAtoms(pdb_pras='1aho.pdb', rotamer="", mutation="",
-	      pdb_faspr="", keep_ligand="", chain_no="")
-
-#out_no_h.pdb is the repaired PDB file written by PRAS. 
-#you must have write permission in this directory
-assignStructure('out_no_h.pdb')
-
-#out_no_h.pdb is the same as above
-ramachandranTypes('out_no_h.pdb')
-
+fixing.ProcessWithDefault()
+#You can print(InitRunType.ProcessWithDefault.__doc__) 
+#to learn more about the member function
 print ('The program took {0} second !'.format(time.time() - startTime))
 ```
 
@@ -93,39 +124,52 @@ For linux, do the same as above except for the example code where you should cop
 
 ```python
 import sys
-if len(sys.argv) == 7:
+
+if len(sys.argv) == 8:
 	import time
-	from Pras_Server.PRAS import repairPDB
-	from Pras_Server.FixHeavyAtoms import fixheavyAtoms
-	from Pras_Server.RamaChandra import ramachandranTypes
-	from Pras_Server.SecondaryStructure import assignStructure
+	from Pras_Server.RunType import InitRunType
 	startTime = time.time()
 
-	fixheavyAtoms(sys.argv[1], sys.argv[2], sys.argv[3],
-		      sys.argv[4], sys.argv[5], sys.argv[6])
-
-	assignStructure('out_no_h.pdb')
-
-	ramachandranTypes('out_no_h.pdb')
-	
+	rotamer=sys.argv[2] 
+	mutation=sys.argv[3]
+	pdb_faspr=sys.argv[4]
+	keep_ligand=sys.argv[5]
+	chain_no=sys.argv[6] 
+	ofname=sys.argv[7]
+	fixing=InitRunType(
+					rotamer, 
+					mutation, 
+					pdb_faspr, 
+					keep_ligand, 
+					chain_no,
+					addh=False,
+					ss=False,
+					raman=False,
+					ofname=False,
+					pdbid=False
+					)
+	fixing.fname=sys.argv[1]
+	fixing.ProcessWithDefault()
 	print ('The program took {0} second !'.format(time.time() - startTime))
 
 else:
-	print('PRAS takes 6 compulsory arguments. Execute the code below on your'
-	     ' shell prompt to learn more\n')
-
-	print('printf \'from Pras_Server.PRAS import' 
-	      ' repairPDB\\nprint(repairPDB.__doc__)\\n\\n()\' | python3\n')
+	print("PRAS takes 8 compulsory arguments." 
+		  " Execute the code below on your shell prompt to learn more\n")
+	print("printf \"from Pras_Server.PRAS import" 
+		  " repairPDB\\nprint(repairPDB.__doc__)\\n\\n()\" | python3\n")
 ```
 
 Then, cd to the directory where example.py is located and enter the following argument on your shell prompt:
 
-`python3 example.py 1aho.pdb "" "" "" "" ""`
+`python3 example.py 1aho.pdb "" "" "" "" "" ""`
+
 
 ## WINDOWS SUBSYSTEM FOR LINUX (WSL)
 
 In order to run Linux GUI applications e.g., the plots for
-secondary structure assignment and 4 Ramachandran types 
+
+secondary structure assignment and 4 Ramachandran types
+
 using Windows Subsystem for Linux (WSL), you must install X server for Windows.
 
 Thus, you need to:
@@ -147,11 +191,9 @@ To have the configuration changes take effect, restart bash, or run:
 Then open VcXsrv from your taskbar (you should send the icon to taskbar for easy access).
 Note that VcXsrv must be open/running each time you use plotting tools in WSL
 
-Bear in mind that PRAS uses a particular name for the output file and will automatically remove the file during another run. To process multiple files at the same time, concatenate the file name with PRAS dafault name in the appropriate .py file in your installation folder. Alternatively you can download the whole PRAS source code at https://www.protein-science.com/ and modify the software as deemed fit before installation.
-
 PRAS has been peer reviewed and published. Please cite PRAS as:
 
-O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms, and Assign Secondary Structures by Amide Interactions. 
+O.S. Nnyigide, T.O. Nnyigide, S.G. Lee, K. Hyun. Protein Repair and Analysis Server: A Web Server to Repair PDB Structures, Add Missing Heavy Atoms and Hydrogen Atoms, and Assign Secondary Structures by Amide Interactions.
 J. Chem. Inf. Model., 2022, 62, 4232–4246.
 
 ## License
