@@ -23,6 +23,10 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
+On November 20, 2022, a C++ version of the server that is independent of the python counterpart was released. The C++ version is named Pras_Server_C++ and is part of this repository. Both versions produce the same result but the former is 9 to 12 times faster than the latter. To use the C++ version, download this ZIP and extract the Pras_Server_C++ folder and follow the instruction in the INSTALL file included with the distribution.
+
+To use the python distribution on your local machine, use pip as given below or copy Pras_Server folder to any of the directories that Python searches at run-time
+
 `pip install Pras-Server==1.0.11`
 
 ## PRAS usage
