@@ -56,7 +56,7 @@ class InitRunType:
 		"""
 		Use this member function if you want to process all the PDBs in the directory where you called this program.
 		Here, the name of the output file will be the name of your input file minus ending .pdb plus _out.
-		In the case of a rurun PRAS will remove previous output files because PRAS writes in append mode
+		In the case of a rerun PRAS will remove previous output files because PRAS writes in append mode
 
 		The log file has the name of each PDB repaired so that you will know which PDB structure has missing atoms
 		In the case of a rerun the log file will be removed for the reasons stated above.
@@ -107,7 +107,7 @@ class InitRunType:
 		"""
 		Use this member function if you want to process all the PDBs in a pdbid list supplied to PRAS.
 		Here, the name of the output file will be the name of your input PDB id plus _out.
-		In the case of a rurun PRAS will remove previous output files because PRAS writes in append mode
+		In the case of a rerun PRAS will remove previous output files because PRAS writes in append mode
 
 		The log file has the name of each PDB repaired so that you will know which PDB structure has missing atoms
 		In the case of a rerun the log file will be removed for the reasons stated above.
@@ -161,7 +161,7 @@ class InitRunType:
 	def ProcessWithDefault(self):
 		"""
 		Use this member function if you want to process a single PDB file using PRAS default output name.
-		In the case of a rurun PRAS will remove previous output files because PRAS writes in append mode
+		In the case of a rerun PRAS will remove previous output files because PRAS writes in append mode
 
 		As an example, copy and run the below code in a python document in your directory with a PDB file 
 
