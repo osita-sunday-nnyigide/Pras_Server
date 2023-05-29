@@ -1137,7 +1137,6 @@ def his_note(resNo, chainNo):
         resNo = resNo[:-1]
     with open('log.txt', 'a') as f:
         f.write('HIS {} in chain {} is protonated (+1 charge)'\
-        '. Comment line 471 in PRAS.py to turn it off'
         ' (ref @ www.protein-science.com)'
         .format(resNo,chainNo)+'\n\n')
 
