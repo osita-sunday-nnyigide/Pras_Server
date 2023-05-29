@@ -23,7 +23,7 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
-`pip install Pras-Server==1.0.11`
+`pip install Pras-Server==1.1.0`
 
 ## PRAS usage
 
@@ -53,7 +53,8 @@ fixing = InitRunType( rotamer="",
 					ss=False,
 					raman=False,
 					ofname=False,
-					pdbid=_82_pdbs
+					pdbid=_82_pdbs,
+		     			his_p=False
 					)
 
 # fixed PDB is saved with name=PDB ID+_out.pdb
@@ -66,6 +67,7 @@ fixing = InitRunType( rotamer="",
 # keep_ligand, use default or "yes" to keep non-water ligands
 # chain_no, use default or string number (e.g., "1") to process a specific chain
 # ofname, output file name, use default. To use your own name read documentaion below
+# his_p, protonate 20% of HIS. A fraction of HIS may be charged at pH of 7. Use default
 # Execute print(InitRunType.ProcessOther().__doc__) or see RunType.py doc instructions
 # pdb_faspr, use default or enter a pdb output from faspr, reason is stated in pras paper
 
@@ -109,7 +111,8 @@ fixing = InitRunType(rotamer="",
 					ss=False,
 					raman=False,
 					ofname=False,
-					pdbid=False
+					pdbid=False,
+		     			his_p=False
 					)
 
 fixing.fname = '1aho.pdb'
@@ -125,7 +128,7 @@ For linux, do the same as above except for the example code where you should cop
 ```python
 import sys
 
-if len(sys.argv) == 8:
+if len(sys.argv) == 9:
 	import time
 	from Pras_Server.RunType import InitRunType
 	startTime = time.time()
@@ -136,6 +139,7 @@ if len(sys.argv) == 8:
 	keep_ligand=sys.argv[5]
 	chain_no=sys.argv[6] 
 	ofname=sys.argv[7]
+	his_p=sys.argv[8]
 	fixing=InitRunType(
 					rotamer, 
 					mutation, 
@@ -146,14 +150,15 @@ if len(sys.argv) == 8:
 					ss=False,
 					raman=False,
 					ofname=False,
-					pdbid=False
+					pdbid=False,
+					his_p=False
 					)
 	fixing.fname=sys.argv[1]
 	fixing.ProcessWithDefault()
 	print ('The program took {0} second !'.format(time.time() - startTime))
 
 else:
-	print("PRAS takes 8 compulsory arguments." 
+	print("PRAS takes 9 compulsory arguments." 
 		  " Execute the code below on your shell prompt to learn more\n")
 	print("printf \"from Pras_Server.PRAS import" 
 		  " repairPDB\\nprint(repairPDB.__doc__)\\n\\n()\" | python3\n")
@@ -161,7 +166,7 @@ else:
 
 Then, cd to the directory where example.py is located and enter the following argument on your shell prompt:
 
-`python3 example.py 1aho.pdb "" "" "" "" "" ""`
+`python3 example.py 1aho.pdb "" "" "" "" "" "" ""`
 
 
 ## WINDOWS SUBSYSTEM FOR LINUX (WSL)
