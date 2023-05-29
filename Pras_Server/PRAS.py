@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 __doc__ = """
 
@@ -20,7 +20,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.0.11"
+__version__    = "1.1.0"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -194,7 +194,7 @@ def insertRes(res, _format = None):
             return "?"
 
 
-def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no, ofname=False):
+def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no, ofname=False,his_p=False):
     """
     This function steps over each residue of a chain and obtains from
     MissingHydrogenAtoms.py all atoms of the residue to be wrttien to a new PDB file.
@@ -254,6 +254,8 @@ def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no, ofname=F
                  will convert it to integer but if alphabet error will be generated.
 
     ofname     : the output file name, default name is out.pdb or out.cif
+
+    his_p     : If True, 20% of histidines will be protonated (+1 charge). It only matters if there are more than 4 HIS
 
     Returns
     -------
@@ -469,10 +471,9 @@ def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no, ofname=F
 
         """
         Next code line randomly protonates 20% of all HIS residues
-        comment next code line if you want all HIS side-chain neutral
         See explanation online at www.protein-science.com
         """
-        res_pos, atom_name = prot_his(x,res_pos,atom_name,n)
+        if his_p: res_pos, atom_name = prot_his(x,res_pos,atom_name,n)
 
         # Add backbone hydrogen.
         # It belongs to resi i+1
