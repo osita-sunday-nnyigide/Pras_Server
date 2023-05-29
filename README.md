@@ -27,7 +27,7 @@ On November 20, 2022, a C++ version of the server that is independent of the pyt
 
 To use the python distribution on your local machine, use pip as given below or copy Pras_Server folder to any of the directories that Python searches at run-time
 
-`pip install Pras-Server==1.0.11`
+`pip install Pras-Server==1.1.0`
 
 ## PRAS usage
 
