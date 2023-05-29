@@ -97,7 +97,7 @@ from Pras_Server.RunType import InitRunType
 startTime = time.time()
 
 fixing = InitRunType(rotamer="", mutation="", pdb_faspr="", keep_ligand="", chain_no="", 
-		     addh=False, ss=False, raman=False, ofname=False,pdbid=False)
+		     addh=False, ss=False, raman=False, ofname=False,pdbid=False, his_p=False)
 
 fixing.fname = '1aho.pdb'
 
