@@ -1,6 +1,6 @@
 import sys
 
-if len(sys.argv) == 8:
+if len(sys.argv) == 9:
 	import time
 	from Pras_Server.RunType import InitRunType
 	startTime = time.time()
@@ -11,6 +11,7 @@ if len(sys.argv) == 8:
 	keep_ligand=sys.argv[5]
 	chain_no=sys.argv[6] 
 	ofname=sys.argv[7]
+	his_p=sys.argv[8]
 	fixing=InitRunType(
 					rotamer, 
 					mutation, 
@@ -21,12 +22,13 @@ if len(sys.argv) == 8:
 					ss=False,
 					raman=False,
 					ofname=False,
-					pdbid=False
+					pdbid=False,
+					his_p=False
 					)
 	fixing.fname=sys.argv[1]
 	fixing.ProcessWithDefault()
 	print ('The program took {0} second !'.format(time.time() - startTime))
 
 else:
-	print("PRAS takes 8 compulsory arguments. Execute the code below on your shell prompt to learn more\n")
+	print("PRAS takes 9 compulsory arguments. Execute the code below on your shell prompt to learn more\n")
 	print("printf \"from Pras_Server.PRAS import repairPDB\\nprint(repairPDB.__doc__)\\n\\n()\" | python3\n")
