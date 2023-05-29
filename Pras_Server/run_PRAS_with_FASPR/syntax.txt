@@ -2,10 +2,10 @@ Compile FASPR
 `g++ -ffast-math -O3 -o FASPR src/*.cpp`
 
 Install PRAS server
-`pip install Pras-Server==1.1.0`
+`pip install Pras-Server==1.2.1`
 
 Execute to run PRAS with FASPR output PDB
-`./FASPR –i 1aho.pdb -o output.pdb;python3 linux_example.py 1aho.pdb "" "" output.pdb "" ""`
+`./FASPR –i 1aho.pdb -o output.pdb;python3 linux_example.py 1aho.pdb "" "" output.pdb "" "" "" ""`
 
 You will see that both 	secondary structure assignemnt(ss) and ramachandran plot (rama) 
 are set to False and the reason is because you must install X server for Windows
