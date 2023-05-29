@@ -18,7 +18,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.1.0"
+__version__    = "1.2.1"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
