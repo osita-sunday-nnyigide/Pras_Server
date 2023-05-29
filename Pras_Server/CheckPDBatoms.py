@@ -18,7 +18,7 @@ __credits__    = ["Tochukwu Olunna Nnyigide", "Lee Sun-Gu", "Hyun Kyu"]
 
 __license__    = "MIT"
 
-__version__    = "1.1.0"
+__version__    = "1.2.1"
 
 __maintainer__ = "Osita Sunday Nnyigide"
 
@@ -289,7 +289,7 @@ def checkpdbAtoms (pdb_pras, rotamer, mutation, pdb_faspr, keep_ligand, chain_no
 
         log.write('#'*183+'\n')
 
-        log.write('PRAS 1.0.11. This is a PRAS-generated log file.'
+        log.write('PRAS 1.2.1. This is a PRAS-generated log file.'
                 ' For your information, all missing or fixed atoms'
                 ' and other relevant information concerning the repair'
                 ' are appended below '+'\n')
