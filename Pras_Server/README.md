@@ -23,7 +23,7 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
-`pip install Pras-Server==1.1.0`
+`pip install Pras-Server==1.2.1`
 
 ## PRAS usage
 
