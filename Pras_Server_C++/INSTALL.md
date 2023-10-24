@@ -51,7 +51,7 @@ OPTIONAL
 -k (keep)   enter yes to keep the log file. All fixed PDBs will be mentioned by name in the log file so that you 
             can identify the ones whose atoms were fixed.  
 
-To understand these OPTIONAL flags, execute the shell.sh to process 713 PDBs. It has been programmed to name all the output files
+To understand these OPTIONAL flags, execute the shell.sh to process 713 PDBs (see COMPREHENSIVE TEST WITH 713 PDB IDs). It has been programmed to name all the output files
 
 by PDB 4 letter code
 
