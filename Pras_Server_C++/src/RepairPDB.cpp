@@ -77,6 +77,7 @@ void OutputStructure:: writeOutput(char format, string output)
                     TER:          ofile<<"TER   "<<setw(5)<<atom_num<<"      "
                                   <<chains[i].res_type<<" "<<chains[i].c_id<<setw(4)
                                   <<chains[i].res_num<<endl;
+                                  atom_num++;
                             }
                   }
           }
