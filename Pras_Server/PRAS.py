@@ -553,6 +553,7 @@ def repairPDB(pdb_pras,rotamer,mutation,pdb_faspr,keep_ligand,chain_no, ofname=F
                 if n != len(nchains)-1:
                     f.write('{:4s}' '{:2s}' '{:5d}''{:s}' '{:4s}''{:s}''{:3s}' '{:2s}''{:4d}\n'.format\
                         ('TER',' ',number,' ',' ', ' ',resseq[len(x)-1],' '+chains[n],resNo[len(x)-1]))
+                    number+=1
                 else:
                     f.write('{:4s}' '{:2s}' '{:5d}''{:s}' '{:4s}''{:s}''{:3s}' '{:2s}''{:4d}\n'.format\
                         ('TER',' ',number,' ',' ', ' ',resseq[len(x)-1],' '+chains[n],resNo[len(x)-1]))
