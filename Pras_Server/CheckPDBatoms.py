@@ -193,7 +193,7 @@ def missing_backbone_atom(resNo,chain):
     None:    a premature termination of the program
     """
     with open('missing_backbone_atom.txt', 'w') as f:
-        f.write('The residue No {} in chain {} is missing'
+        f.write('The residue No {} in chain {} is missing a'
             ' backbone heavy atom. Program has terminated'
             ' abnormally. Note that for .cif the reported'
             ' sequence number is the label_seq_id which may'
