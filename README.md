@@ -23,7 +23,7 @@ Tools to draw 4 Ramachandran types (i.e., general, glycine, proline and pre-prol
 
 ## PRAS installation
 
-On June 15, 2024, an easy-to-use Windows Desktop Application version of the server was developed. The download link for the EXE file is available through the website https://www.protein-science.com/
+On June 15, 2024, an easy-to-use Windows Desktop Application version of the server was developed. The Windows desktop app is briefly explained in https://github.com/osita-sunday-nnyigide/PRAS_Server_Windows_App. The download link for the EXE file is available through the website https://www.protein-science.com/
 
 On November 20, 2022, a C++ version of the server that is independent of the python counterpart was released. The C++ version is named Pras_Server_C++ and is part of this repository. Both versions produce the same result but the former is 9 to 12 times faster than the latter. To use the C++ version, download this ZIP and extract the Pras_Server_C++ folder and follow the instruction in the INSTALL file included with the distribution.
 
