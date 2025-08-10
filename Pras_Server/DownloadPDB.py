@@ -69,7 +69,7 @@ def downloadFile(code):
 
     code = code[:4]
     f_in =   'pdb'+code+'.ent.gz' if f_format == 'pdb' else code+'.cif.gz'
-    url =  "ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/%s/%s/%s" % (f_format,code[1:3],f_in)
+    url =  "https://files.wwpdb.org/pub/pdb/data/structures/divided/%s/%s/%s" % (f_format,code[1:3],f_in)
 
     path = os.getcwd()
     f_in = os.path.join(path, f_in)
